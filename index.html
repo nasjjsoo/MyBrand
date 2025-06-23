@@ -1,22 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Numiba - Overnight Lifting Mask</title>
+    <title>Numiba - Masque Liftant de Nuit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
         /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
         }
         
         body {
+            font-family: 'Open Sans', sans-serif;
             color: #333;
             line-height: 1.6;
             padding-top: 60px; /* Space for sticky header */
+        }
+
+        h1, h2, h3, h4, h5, h6, .logo, .product-card-title, .newsletter-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500; /* Medium weight for Montserrat */
         }
         
         /* Top Banner Notices */
@@ -99,11 +107,15 @@
         .menu-icon, .cart-icon {
             font-size: 20px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.2s ease-in-out; /* Spécifié et easing amélioré */
         }
         
         .menu-icon:hover, .cart-icon:hover {
             transform: scale(1.1);
+        }
+
+        .cart-icon svg { /* Pour s'assurer que le SVG hérite de la transition si besoin */
+            display: block; /* Évite les problèmes d'espacement inline */
         }
         
         .cart-count {
@@ -271,7 +283,7 @@
         }
         
         .checkout-btn {
-            background-color: #000;
+            background-color: #28a745; /* Vert, cohérent avec les boutons d'ajout de produit recommandé */
             color: white;
             border: none;
             padding: 15px;
@@ -279,15 +291,30 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            border-radius: 25px; /* Bordures arrondies */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 15px; /* Ajout d'un peu d'espace au-dessus */
+        }
+
+        .checkout-btn:hover {
+            background-color: #218838; /* Vert plus foncé */
+            transform: translateY(-2px);
+        }
+
+        .checkout-btn:active {
+            transform: translateY(0px);
         }
         
         /* Product Hero Section */
         .product-hero {
-            display: flex;
-            flex-direction: column;
+            display: flex; /* Flex par défaut, direction gérée ci-dessous et media query */
+            flex-direction: column; /* Mobile first: stack verticalement */
             padding: 20px;
             max-width: 1200px;
-            margin: 120px auto 0;
+            margin: 30px auto 0; /* Marge réduite, l'espace est géré par product-selector-section */
+            /* L'animation fade-in sera appliquée par JS lors de l'affichage */
         }
         
         .main-image {
@@ -295,11 +322,13 @@
             height: auto;
             margin-bottom: 15px;
             cursor: zoom-in;
-            transition: transform 0.3s;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 8px; /* Ajout de bordures arrondies */
         }
         
         .main-image:hover {
-            transform: scale(1.02);
+            transform: scale(1.015); /* Zoom plus subtil */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Ombre portée plus prononcée */
         }
         
         .thumbnail-container {
@@ -312,14 +341,17 @@
         .thumbnail {
             width: 80px;
             height: 80px;
-            border: 1px solid #eee;
-            border-radius: 4px;
+            border: 2px solid #eee; /* Bordure légèrement plus épaisse */
+            border-radius: 6px; /* Bordures arrondies plus marquées */
             cursor: pointer;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 2px; /* Petit padding pour que la bordure ne colle pas à l'image */
         }
         
-        .thumbnail:hover {
-            border-color: #888;
+        .thumbnail:hover, .thumbnail.active-thumb { /* Style pour miniature active aussi */
+            border-color: #007bff; /* Couleur plus vive pour la sélection/survol */
+            transform: scale(1.05); /* Léger agrandissement */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
         /* Breadcrumbs */
@@ -378,18 +410,21 @@
         .variant-option {
             border: 1px solid #ddd;
             padding: 8px 15px;
-            border-radius: 4px;
+            border-radius: 20px; /* Bordures plus arrondies pour un look moderne */
             cursor: pointer;
-            transition: all 0.3s;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+            font-size: 14px;
         }
         
         .variant-option.selected {
-            border-color: #000;
-            background-color: #f5f5f5;
+            border-color: #007bff;
+            background-color: #007bff;
+            color: white;
         }
         
-        .variant-option:hover {
-            border-color: #888;
+        .variant-option:hover:not(.selected) { /* Ne pas appliquer le survol si déjà sélectionné */
+            border-color: #007bff;
+            background-color: #e7f3ff; /* Bleu très clair */
         }
         
         /* Price Section */
@@ -423,12 +458,46 @@
         
         .feature-item {
             display: flex;
-            margin-bottom: 10px;
+            align-items: flex-start; /* Aligner les icônes avec le début du texte */
+            margin-bottom: 12px; /* Espacement légèrement augmenté */
         }
         
         .feature-icon {
             margin-right: 10px;
-            color: #388e3c;
+            color: #007bff; /* Couleur d'accentuation bleue */
+            flex-shrink: 0; /* Empêche l'icône de rétrécir */
+            margin-top: 3px; /* Ajustement vertical fin */
+        }
+
+        .feature-icon svg {
+            display: block; /* Assure un bon rendu du SVG */
+        }
+
+        .product-details {
+            margin-top: 30px; /* Plus d'espace avant les détails */
+        }
+
+        .product-details .details-title { /* Cible la classe ajoutée */
+            font-size: 18px;
+            font-weight: 700; /* Montserrat Bold */
+            margin-bottom: 15px;
+            border-bottom: 2px solid #eee; /* Ligne de séparation subtile */
+            padding-bottom: 8px;
+        }
+
+        .product-details ul {
+            list-style: none; /* Enlever les puces par défaut si ce n'est pas déjà fait */
+            padding-left: 0; /* Enlever le padding par défaut */
+        }
+
+        .product-details li {
+            margin-bottom: 8px;
+            font-size: 15px; /* Taille de police légèrement augmentée */
+            color: #555; /* Couleur de texte un peu plus douce */
+        }
+
+        .product-details li strong {
+            color: #333; /* Rendre le label plus distinct */
         }
         
         /* Add to Cart */
@@ -444,7 +513,7 @@
         }
         
         .add-to-cart {
-            background-color: #000;
+            background-color: #007bff; /* Couleur primaire bleue */
             color: white;
             border: none;
             padding: 15px 30px;
@@ -452,11 +521,19 @@
             font-weight: bold;
             width: 100%;
             cursor: pointer;
-            transition: background-color 0.3s;
+            border-radius: 25px; /* Bordures arrondies */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-transform: uppercase; /* Majuscules pour un look plus fort */
+            letter-spacing: 0.5px;
         }
         
         .add-to-cart:hover {
-            background-color: #333;
+            background-color: #0056b3; /* Bleu plus foncé au survol */
+            transform: translateY(-2px); /* Léger soulèvement */
+        }
+
+        .add-to-cart:active {
+            transform: translateY(0px); /* Retour à la position initiale au clic */
         }
         
         /* Results Section */
@@ -525,13 +602,14 @@
         
         .comparison-image {
             width: 45%;
-            border-radius: 4px;
+            border-radius: 8px; /* Bordures arrondies améliorées */
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         
         .comparison-image:hover {
-            transform: scale(1.03);
+            transform: scale(1.025); /* Zoom plus subtil */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12); /* Ombre plus douce */
         }
         
         .comparison-label {
@@ -554,14 +632,16 @@
         }
         
         .product-card {
-            border: 1px solid #eee;
-            border-radius: 8px;
+            border: 1px solid #e0e0e0; /* Bordure légèrement plus visible */
+            border-radius: 12px; /* Bordures plus arrondies */
             padding: 15px;
-            transition: box-shadow 0.3s;
+            transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+            background-color: #fff; /* Fond blanc explicite */
         }
         
         .product-card:hover {
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1); /* Ombre plus prononcée */
+            transform: translateY(-5px); /* Léger soulèvement */
         }
         
         .product-card-image {
@@ -581,18 +661,27 @@
         }
         
         .product-card-button {
-            background-color: #000;
+            background-color: #28a745; /* Vert pour l'action d'ajout/choix */
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 15px; /* Padding augmenté */
             width: 100%;
             margin-top: 10px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            border-radius: 20px; /* Bordures arrondies */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-weight: 500; /* Poids de police medium */
+            text-transform: uppercase;
+            font-size: 14px;
         }
         
         .product-card-button:hover {
-            background-color: #333;
+            background-color: #218838; /* Vert plus foncé */
+            transform: translateY(-1px);
+        }
+
+        .product-card-button:active {
+            transform: translateY(0px);
         }
         
         /* Reviews Section */
@@ -609,14 +698,16 @@
         }
         
         .review-card {
-            border: 1px solid #eee;
-            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
             padding: 20px;
-            transition: box-shadow 0.3s;
+            transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+            background-color: #fff;
         }
         
         .review-card:hover {
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
         }
         
         .reviewer {
@@ -733,18 +824,35 @@
             border-right: none;
         }
         
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px; /* Padding augmenté */
+            border: 1px solid #ddd;
+            border-radius: 25px 0 0 25px; /* Bordures arrondies */
+            border-right: none;
+            font-size: 15px; /* Taille de police augmentée */
+        }
+
         .newsletter-button {
-            background-color: #000;
+            background-color: #007bff; /* Bleu primaire */
             color: white;
             border: none;
-            padding: 0 15px;
-            border-radius: 0 4px 4px 0;
+            padding: 0 20px; /* Padding augmenté */
+            border-radius: 0 25px 25px 0; /* Bordures arrondies */
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
+            display: flex; /* Pour centrer le SVG */
+            align-items: center;
+            justify-content: center;
         }
         
         .newsletter-button:hover {
-            background-color: #333;
+            background-color: #0056b3; /* Bleu plus foncé */
+        }
+
+        .newsletter-button svg {
+            width: 20px; /* Taille de l'icône SVG */
+            height: 20px;
         }
         
         .newsletter-note {
@@ -904,187 +1012,259 @@
         .fade-in {
             animation: fadeIn 0.5s ease-in;
         }
+
+        /* Product Selector Section */
+        .product-selector-section {
+            padding: 30px 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+            margin-top: 110px; /* Ajusté pour tenir compte des barres fixes */
+        }
+
+        .product-selector-section .section-title {
+            margin-bottom: 25px;
+            font-size: 22px;
+        }
+
+        .product-selectors {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .product-selector {
+            border: 2px solid transparent;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 280px; /* Largeur fixe pour chaque sélecteur */
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .product-selector:hover {
+            border-color: #000;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+
+        .product-selector.active-selector {
+            border-color: #007bff; /* Couleur pour indiquer la sélection active */
+            box-shadow: 0 6px 16px rgba(0, 123, 255, 0.2);
+        }
+
+        .product-selector img {
+            width: 100%;
+            max-width: 200px; /* Taille max de l'image */
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 6px;
+        }
+
+        .product-selector h3 {
+            font-size: 16px;
+            color: #333;
+            margin: 0;
+        }
+
     </style>
 </head>
 <body>
-    <!-- Top Banner Notices -->
+    <!-- Bannières d'information supérieures -->
     <div class="notice-bar">
         <div class="notice-content">
             <div class="notice-item">
-                <span>SUMMER SALE: UP TO 30% OFF</span>
-                <span class="notice-icon">⏱️</span>
+                <span>SOLDES D'ÉTÉ : JUSQU'À -30%</span>
+                <span class="notice-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16"> <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/> <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/> </svg></span>
             </div>
             <div class="notice-item">
-                <span>PRE-SUMMER SALE: UP TO 30% OFF</span>
-                <span class="notice-icon">⏱️</span>
+                <span>PRÉ-SOLDES D'ÉTÉ : JUSQU'À -30%</span>
+                <span class="notice-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16"> <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/> <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/> </svg></span>
             </div>
         </div>
     </div>
     
     <div class="shipping-bar">
-        FREE SHIPPING
+        LIVRAISON GRATUITE
     </div>
     
-    <!-- Header / Navbar -->
+    <!-- En-tête / Barre de navigation -->
     <header>
         <div class="menu-icon">☰</div>
         <div class="logo">numiba</div>
         <div class="cart-wrapper">
-            <div class="cart-icon">🛒</div>
+            <div class="cart-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16"> <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.74 11.91A.5.5 0 0 1 4 12H2.5a.5.5 0 0 1-.5-.5zM3.14 4l.721 2.884L13.28 7.5l.666-3.333H3.14zM5 12.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm-1.5.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm5.5 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/> </svg></div>
             <div class="cart-count">0</div>
         </div>
     </header>
     
-    <!-- Side Menu -->
+    <!-- Menu latéral -->
     <div class="side-menu">
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Shop</a></li>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="#">Boutique</a></li>
             <li><a href="#">Collections</a></li>
-            <li><a href="#">Bestsellers</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="#">Meilleures ventes</a></li>
+            <li><a href="#">À propos</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
     </div>
     
     <div class="menu-overlay"></div>
     
-    <!-- Cart Sidebar -->
+    <!-- Panier latéral -->
     <div class="cart-sidebar">
         <div class="cart-header">
-            <h3>Your Cart</h3>
+            <h3>Votre Panier</h3>
             <div class="close-cart">×</div>
         </div>
         <div class="cart-items">
-            <!-- Cart items will be added here dynamically -->
+            <!-- Les articles du panier seront ajoutés ici dynamiquement -->
         </div>
         <div class="cart-total">
-            Total: €0.00
+            Total : 0,00 €
         </div>
-        <button class="checkout-btn">CHECKOUT</button>
+        <button class="checkout-btn">PASSER LA COMMANDE</button>
     </div>
     
-    <!-- Image Modal -->
+    <!-- Modale d'image -->
     <div class="modal">
         <span class="close-modal">&times;</span>
         <img class="modal-content" id="zoomed-image">
     </div>
     
-    <!-- Breadcrumbs -->
+    <!-- Fil d'Ariane -->
     <div class="breadcrumbs">
-        Collections <span>/</span> Bestseller
+        Collections <span>/</span> Meilleures Ventes
     </div>
     
-<!-- Product Hero Section -->
-<div class="product-hero">
+<!-- Section de sélection des produits -->
+<div class="product-selector-section">
+    <h2 class="section-title">Choisissez un produit à explorer</h2>
+    <div class="product-selectors">
+        <div class="product-selector" data-product-id="product-mask">
+            <img src="pack_57a4d1b2-d2cf-40aa-8e0f-13e5010a0199.webp" alt="Masque Liftant de Nuit">
+            <h3>Masque Liftant de Nuit</h3>
+        </div>
+        <div class="product-selector" data-product-id="product-therapy-mask">
+            <img src="8108jNqNHYL._SL1500_.jpg" alt="Masque de Luminothérapie">
+            <h3>Masque de Luminothérapie</h3>
+        </div>
+    </div>
+</div>
+
+<!-- Section Produit Principal -->
+<div class="product-hero" id="product-mask" data-product-name="Masque Liftant de Nuit">
     <div class="main-image-container">
-        <img src="71vB0ZpsSUS.SL1500.jpg" alt="Anti-Aging Jawline Exerciser and Lifting Bandage Set" class="main-image">
+        <img src="71vB0ZpsSUS.SL1500.jpg" alt="Ensemble d'exerciseur de mâchoire anti-âge et bandage liftant" class="main-image">
         
         <div class="thumbnail-container">
-            <img src="pack_57a4d1b2-d2cf-40aa-8e0f-13e5010a0199.webp" alt="Product Thumbnail 1" class="thumbnail">
-            <img src="H341bd4e373d042d5b87f953231f1f66ap.webp" alt="Product Thumbnail 2" class="thumbnail">
-            <img src="newp_pic_jawline_creme.webp" alt="Product Thumbnail 3" class="thumbnail">
-            <img src="71gj9pgriHS._SL1500_.jpg" alt="Product Thumbnail 5" class="thumbnail">
-            <img src="71uv33UjZnS._SL1500_.jpg" alt="Product Thumbnail 6" class="thumbnail">
-            <img src="71vB0ZpsSUS._SL1500_.jpg" alt="Product Thumbnail 7" class="thumbnail">
+            <img src="pack_57a4d1b2-d2cf-40aa-8e0f-13e5010a0199.webp" alt="Miniature produit 1" class="thumbnail">
+            <img src="H341bd4e373d042d5b87f953231f1f66ap.webp" alt="Miniature produit 2" class="thumbnail">
+            <img src="newp_pic_jawline_creme.webp" alt="Miniature produit 3" class="thumbnail">
+            <img src="71gj9pgriHS._SL1500_.jpg" alt="Miniature produit 5" class="thumbnail">
+            <img src="71uv33UjZnS._SL1500_.jpg" alt="Miniature produit 6" class="thumbnail">
+            <img src="71vB0ZpsSUS._SL1500_.jpg" alt="Miniature produit 7" class="thumbnail">
         </div>
     </div>
     
     <div class="product-info">
         <div class="rating">
             <span class="stars">★★★★★</span>
-            <span>4.8 | 770 Reviews</span>
+            <span>4.8 | 770 Avis</span>
         </div>
         
-        <h1 class="product-title">Overnight Lifting Mask</h1>
+        <h1 class="product-title">Masque Liftant de Nuit</h1>
         
-        <!-- Price Section -->
+        <!-- Section Prix -->
         <div class="price-section">
-            <span class="sale-price">$22.99</span>
-            <span class="price-note">($3.60 / ounce)</span>
+            <span class="sale-price">22,99 $</span>
+            <span class="price-note">(3,60 $ / once)</span>
         </div>
         
         
-        <!-- Add to Cart Section -->
+        <!-- Section Ajouter au Panier -->
         <div class="add-to-cart-section">
-            <div class="cart-notice">Only 5 left in stock - order soon.</div>
-            <button class="add-to-cart">ADD TO CART</button>
+            <div class="cart-notice">Plus que 5 en stock - commandez vite.</div>
+            <button class="add-to-cart">AJOUTER AU PANIER</button>
         </div>
         
-        <!-- Product Description -->
+        <!-- Description du Produit -->
         <div class="product-description">
-            <p>This jawline exerciser set is designed to improve the face tightening and lifting to enhance your jawline. Workout your jaw muscles give you a younger and healthier look.</p>
+            <p>Cet ensemble d'exerciseur de mâchoire est conçu pour améliorer le raffermissement et le lifting du visage afin d'améliorer votre ligne de mâchoire. Entraînez les muscles de votre mâchoire pour vous donner une apparence plus jeune et plus saine.</p>
         </div>
         
-        <!-- Features List -->
+        <!-- Liste des Caractéristiques -->
         <div class="features">
             <div class="feature-item">
-                <span class="feature-icon">✓</span>
-                <span><strong>Be More Attractive:</strong> Enhances your jawline for a younger and healthier look</span>
+                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                <span><strong>Soyez Plus Attrayant :</strong> Améliore la ligne de votre mâchoire pour une apparence plus jeune et plus saine.</span>
             </div>
             <div class="feature-item">
-                <span class="feature-icon">✓</span>
-                <span><strong>Safe & Durable:</strong> Made of BPA free food-grade silicone, no peculiar smell</span>
+                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                <span><strong>Sûr et Durable :</strong> Fabriqué en silicone de qualité alimentaire sans BPA, sans odeur particulière.</span>
             </div>
             <div class="feature-item">
-                <span class="feature-icon">✓</span>
-                <span><strong>3in1 Set:</strong> Includes exercisers for beginners and advanced users plus lifting bandage</span>
+                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                <span><strong>Ensemble 3en1 :</strong> Comprend des exerciseurs pour débutants et utilisateurs avancés ainsi qu'un bandage liftant.</span>
             </div>
             <div class="feature-item">
-                <span class="feature-icon">✓</span>
-                <span><strong>Convenient:</strong> Only takes a few minutes a day, can be used while sleeping</span>
+                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                <span><strong>Pratique :</strong> Ne prend que quelques minutes par jour, peut être utilisé pendant le sommeil.</span>
             </div>
             <div class="feature-item">
-                <span class="feature-icon">✓</span>
-                <span><strong>Satisfaction Guarantee:</strong> Friendly return and exchange service</span>
+                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                <span><strong>Satisfaction Garantie :</strong> Service de retour et d'échange convivial.</span>
             </div>
         </div>
         
-        <!-- Product Details -->
+        <!-- Détails du Produit -->
         <div class="product-details">
-            <h3>Product Details</h3>
+            <h3 class="details-title">Détails du Produit</h3>
             <ul>
-                <li><strong>Brand:</strong> Haigivesoon</li>
-                <li><strong>Item Form:</strong> Stick</li>
-                <li><strong>Product Benefits:</strong> Tightening, Anti Aging</li>
-                <li><strong>Skin Type:</strong> All</li>
-                <li><strong>Unit Count:</strong> 5.0 Ounce</li>
+                <li><strong>Marque :</strong> Haigivesoon</li>
+                <li><strong>Forme de l'article :</strong> Stick</li>
+                <li><strong>Bénéfices du produit :</strong> Raffermissant, Anti-âge</li>
+                <li><strong>Type de peau :</strong> Tous</li>
+                <li><strong>Nombre d'unités :</strong> 5.0 Once</li>
             </ul>
         </div>
     </div>
 </div>
     
-    <!-- Results Section -->
+    <!-- Section Résultats -->
     <div class="results-section">
-        <h2 class="results-header">Goodbye Saggy Skin Hello Snatched Jawline</h2>
+        <h2 class="results-header">Adieu Peau Relâchée, Bonjour Mâchoire Définie</h2>
         
         <div class="comparison">
             <div>
-                <img src="a4bf5cc5-7f2c-4987-83cb-d89294b84862.jpg" alt="Before" class="comparison-image">
-                <div class="comparison-label">Before</div>
+                <img src="a4bf5cc5-7f2c-4987-83cb-d89294b84862.jpg" alt="Avant" class="comparison-image">
+                <div class="comparison-label">Avant</div>
             </div>
             <div>
-                <img src="03e6e351-da87-4f09-b5c9-5c602d6dcf53.jpg" alt="After" class="comparison-image">
-                <div class="comparison-label">After</div>
+                <img src="03e6e351-da87-4f09-b5c9-5c602d6dcf53.jpg" alt="Après" class="comparison-image">
+                <div class="comparison-label">Après</div>
             </div>
         </div>
         
-        <div class="results-stats">86% of users saw results after 4 weeks</div>
+        <div class="results-stats">86% des utilisateurs ont constaté des résultats après 4 semaines</div>
         
         <div class="testimonial">
             <div class="testimonial-user">
                 <img src="https://via.placeholder.com/50x50?text=Lina" alt="Lina" class="user-avatar">
                 <div class="user-name">Lina</div>
             </div>
-            <p class="testimonial-text">Used the cream and the overnight mask – and omg my skin looks so smooth and tight. Everyone keeps asking if I got Botox lol… nope, just this combo. So good!</p>
+            <p class="testimonial-text">J'ai utilisé la crème et le masque de nuit – et omg ma peau est tellement lisse et tendue. Tout le monde me demande si j'ai fait du Botox lol… non, juste cette combinaison. Tellement bien !</p>
             <div class="comparison">
                 <div>
-                    <img src="https://via.placeholder.com/200x200?text=Before" alt="Before" class="comparison-image">
-                    <div class="comparison-label">Before</div>
+                    <img src="https://via.placeholder.com/200x200?text=Avant" alt="Avant" class="comparison-image">
+                    <div class="comparison-label">Avant</div>
                 </div>
                 <div>
-                    <img src="https://via.placeholder.com/200x200?text=After" alt="After" class="comparison-image">
-                    <div class="comparison-label">Snatched!!</div>
+                    <img src="https://via.placeholder.com/200x200?text=Après" alt="Après" class="comparison-image">
+                    <div class="comparison-label">Incroyable !!</div>
                 </div>
             </div>
         </div>
@@ -1094,134 +1274,135 @@
                 <img src="https://via.placeholder.com/50x50?text=Anna" alt="Anna" class="user-avatar">
                 <div class="user-name">Anna</div>
             </div>
-            <p class="testimonial-text">My Face got really saggy I tried everything but nothing worked. Until I tried the Numiba Lifting Creme & Overnight Mask! So Happy about the results :)</p>
+            <p class="testimonial-text">Mon visage était vraiment affaissé, j'ai tout essayé mais rien n'a fonctionné. Jusqu'à ce que j'essaie la Crème Liftante & le Masque de Nuit Numiba ! Tellement contente des résultats :)</p>
             <div class="comparison">
                 <div>
-                    <img src="https://via.placeholder.com/200x200?text=Before" alt="Before" class="comparison-image">
-                    <div class="comparison-label">Before</div>
+                    <img src="https://via.placeholder.com/200x200?text=Avant" alt="Avant" class="comparison-image">
+                    <div class="comparison-label">Avant</div>
                 </div>
                 <div>
-                    <img src="https://via.placeholder.com/200x200?text=After" alt="After" class="comparison-image">
-                    <div class="comparison-label">So GOOD</div>
+                    <img src="https://via.placeholder.com/200x200?text=Après" alt="Après" class="comparison-image">
+                    <div class="comparison-label">Tellement BIEN</div>
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- Product Hero Section -->
-<div class="product-hero">
+    <!-- Section Produit Principal -->
+<div class="product-hero" id="product-therapy-mask" data-product-name="Masque de Luminothérapie à Lumière Bleue">
     <div class="main-image-container">
-        <img src="8108jNqNHYL._SL1500_.jpg" alt="Blue Light Therapy Mask for Face Acne" class="main-image">
+        <img src="8108jNqNHYL._SL1500_.jpg" alt="Masque de luminothérapie à lumière bleue pour l'acné du visage" class="main-image">
         
         <div class="thumbnail-container">
-            <img src="8108jNqNHYL._SL1500_.jpg" alt="Product Thumbnail 1" class="thumbnail">
-            <img src="71gR8lEe5uL._SL1500_.jpg" alt="Product Thumbnail 2" class="thumbnail">
-            <img src="81HDNU0RU0L._SL1500_.jpg" alt="Product Thumbnail 3" class="thumbnail">
-            <img src="710E7veA9BL._SL1500_.jpg" alt="Product Thumbnail 4" class="thumbnail">
-            <img src="81WKaSgNSNL._SL1500_.jpg" alt="Product Thumbnail 5" class="thumbnail">
-            <img src="91NMHU-+DyL._SL1500_.jpg" alt="Product Thumbnail 6" class="thumbnail">
-            <img src="91rWlj7BMTL._SL1500_.jpg" alt="Product Thumbnail 7" class="thumbnail">
+            <img src="8108jNqNHYL._SL1500_.jpg" alt="Miniature produit 1" class="thumbnail">
+            <img src="71gR8lEe5uL._SL1500_.jpg" alt="Miniature produit 2" class="thumbnail">
+            <img src="81HDNU0RU0L._SL1500_.jpg" alt="Miniature produit 3" class="thumbnail">
+            <img src="710E7veA9BL._SL1500_.jpg" alt="Miniature produit 4" class="thumbnail">
+            <img src="81WKaSgNSNL._SL1500_.jpg" alt="Miniature produit 5" class="thumbnail">
+            <img src="91NMHU-+DyL._SL1500_.jpg" alt="Miniature produit 6" class="thumbnail">
+            <img src="91rWlj7BMTL._SL1500_.jpg" alt="Miniature produit 7" class="thumbnail">
         </div>
     </div>
     
     <div class="product-info">
         <div class="rating">
             <span class="stars">★★★★★</span>
-            <span>5.0 | 13 Reviews</span>
-            <span class="bought-count">100+ bought in past month</span>
+            <span>5.0 | 13 Avis</span>
+            <span class="bought-count">100+ achetés le mois dernier</span>
         </div>
         
-        <h1 class="product-title">Blue Light Therapy Mask for Face Acne, Red LED Light Therapy Device</h1>
-        <div class="brand">Brand: KNNKNN</div>
+        <h1 class="product-title">Masque de Luminothérapie à Lumière Bleue pour l'Acné du Visage, Appareil de Thérapie par Lumière LED Rouge</h1>
+        <div class="brand">Marque : KNNKNN</div>
         
-        <!-- Price Section -->
+        <!-- Section Prix -->
         <div class="price-section">
-            <span class="sale-price">$39.99</span>
-            <span class="price-note">($39.99 / count)</span>
+            <span class="sale-price">39,99 $</span>
+            <span class="price-note">(39,99 $ / unité)</span>
         </div>
         
-        <!-- Add to Cart Section -->
+        <!-- Section Ajouter au Panier -->
         <div class="add-to-cart-section">
-            <div class="cart-notice">Popular item - selling fast!</div>
-            <button class="add-to-cart">ADD TO CART</button>
-            <div class="shipping-info">$64.99 Shipping & Import Charges to Morocco</div>
+            <div class="cart-notice">Article populaire - se vend rapidement !</div>
+            <button class="add-to-cart">AJOUTER AU PANIER</button>
+            <div class="shipping-info">64,99 $ de frais d'expédition et d'importation vers le Maroc</div>
         </div>
         
-        <!-- Key Features -->
+        <!-- Caractéristiques Clés -->
         <div class="features">
             <div class="feature-item">
-                <span class="feature-icon">✅</span>
-                <span><strong>SPA AT HOME:</strong> Professional skin care at home without side effects. Visible results in about 3 months</span>
+                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                <span><strong>SPA À DOMICILE :</strong> Soins professionnels de la peau à domicile sans effets secondaires. Résultats visibles en environ 3 mois.</span>
             </div>
             <div class="feature-item">
-                <span class="feature-icon">✅</span>
-                <span><strong>7 COLOR THERAPY:</strong> 7 light colors targeting different skin conditions with pure light energy</span>
+                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                <span><strong>THÉRAPIE 7 COULEURS :</strong> 7 couleurs de lumière ciblant différentes affections cutanées avec une énergie lumineuse pure.</span>
             </div>
             <div class="feature-item">
-                <span class="feature-icon">✅</span>
-                <span><strong>WIRELESS & PORTABLE:</strong> Rechargeable battery with 8 modes (7 colors + Color Run mode)</span>
+                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                <span><strong>SANS FIL ET PORTABLE :</strong> Batterie rechargeable avec 8 modes (7 couleurs + mode défilement des couleurs).</span>
             </div>
             <div class="feature-item">
-                <span class="feature-icon">✅</span>
-                <span><strong>PERFECT GIFT:</strong> Includes USB cable, manual, and adjustable belt</span>
+                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                <span><strong>CADEAU PARFAIT :</strong> Comprend un câble USB, un manuel et une ceinture réglable.</span>
             </div>
             <div class="feature-item">
-                <span class="feature-icon">✅</span>
-                <span><strong>AUTO SAFETY:</strong> 15min auto-off and lightweight comfortable design</span>
+                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                <span><strong>SÉCURITÉ AUTOMATIQUE :</strong> Arrêt automatique après 15 minutes et design léger et confortable.</span>
             </div>
         </div>
         
-        <!-- Detailed Description -->
+        <!-- Description Détaillée -->
         <div class="product-description">
-            <h3>Detailed Benefits:</h3>
+            <h3>Bénéfices Détaillés :</h3>
             <ul>
-                <li>Reduces acne and improves skin clarity</li>
-                <li>Minimizes wrinkles and fine lines</li>
-                <li>Tightens and brightens complexion</li>
-                <li>Anti-aging and skin restoration</li>
-                <li>99% purity LED chips for effective treatment</li>
+                <li>Réduit l'acné et améliore la clarté de la peau</li>
+                <li>Minimise les rides et ridules</li>
+                <li>Raffermit et éclaircit le teint</li>
+                <li>Anti-âge et restauration de la peau</li>
+                <li>Puces LED de pureté à 99% pour un traitement efficace</li>
             </ul>
         </div>
         
-        <!-- Product Specifications -->
+        <!-- Spécifications du Produit -->
         <div class="product-details">
-            <h3>Technical Details:</h3>
+            <h3 class="details-title">Détails Techniques :</h3>
             <ul>
-                <li><strong>Power Source:</strong> Built-in rechargeable battery</li>
-                <li><strong>Usage:</strong> 15 minutes per session (auto shut-off)</li>
-                <li><strong>Charging:</strong> USB charging (doesn't work while charging)</li>
-                <li><strong>Weight:</strong> Lightweight for comfortable wear</li>
-                <li><strong>Included:</strong> Mask, USB cable, manual, adjustable belt</li>
+                <li><strong>Source d'alimentation :</strong> Batterie rechargeable intégrée</li>
+                <li><strong>Utilisation :</strong> 15 minutes par session (arrêt automatique)</li>
+                <li><strong>Chargement :</strong> Chargement USB (ne fonctionne pas pendant le chargement)</li>
+                <li><strong>Poids :</strong> Léger pour un port confortable</li>
+                <li><strong>Inclus :</strong> Masque, câble USB, manuel, ceinture réglable</li>
             </ul>
         </div>
     </div>
 </div>
 
-    <!-- Recommended Products -->
+    <!-- Produits Recommandés -->
+    <!-- Produits Recommandés -->
     <div class="recommended-products">
-        <h2 class="section-title">For that sculpted finish, try this:</h2>
+        <h2 class="section-title">Pour cette finition sculptée, essayez ceci :</h2>
         <div class="products-grid">
             <div class="product-card">
-                <img src="https://via.placeholder.com/250x250?text=Korean+Collagen+Mask" alt="Korean Collagen Mask" class="product-card-image">
-                <h3 class="product-card-title">Korean Collagen Mask</h3>
-                <div class="product-card-price">Regular price From €16,99</div>
-                <button class="product-card-button">Choose options</button>
+                <img src="https://via.placeholder.com/250x250?text=Korean+Collagen+Mask" alt="Masque Coréen au Collagène" class="product-card-image">
+                <h3 class="product-card-title">Masque Coréen au Collagène</h3>
+                <div class="product-card-price">Prix normal À partir de 16,99 €</div>
+                <button class="product-card-button">Choisir les options</button>
             </div>
             <div class="product-card">
-                <img src="https://via.placeholder.com/250x250?text=Collagen+Jelly+Cream" alt="Collagen Jelly Cream" class="product-card-image">
-                <h3 class="product-card-title">Collagen Jelly Cream</h3>
-                <div class="product-card-price">Regular price €16,99</div>
-                <button class="product-card-button">Add to cart</button>
+                <img src="https://via.placeholder.com/250x250?text=Collagen+Jelly+Cream" alt="Crème Gelée au Collagène" class="product-card-image">
+                <h3 class="product-card-title">Crème Gelée au Collagène</h3>
+                <div class="product-card-price">Prix normal 16,99 €</div>
+                <button class="product-card-button">Ajouter au panier</button>
             </div>
         </div>
     </div>
     
-    <!-- Reviews Section -->
+    <!-- Section Avis -->
     <div class="reviews">
         <div class="rating">
             <span class="stars">★★★★★</span>
             <span>4.8</span>
-            <span>237+ Reviews</span>
+            <span>237+ Avis</span>
         </div>
         
         <div class="review-cards">
@@ -1230,15 +1411,15 @@
                     <img src="https://via.placeholder.com/40x40?text=Vivien" alt="Vivien" class="reviewer-avatar">
                     <div class="reviewer-info">
                         <div class="reviewer-name">Vivien S.</div>
-                        <div class="reviewer-badge">Verified Buyer</div>
+                        <div class="reviewer-badge">Acheteur vérifié</div>
                     </div>
                 </div>
                 <div class="review-stars">★★★★★</div>
-                <h3 class="review-title">Snatched Jawline</h3>
-                <p class="review-text">People asked me if I had anything done after wearing this lifting mask! Really impressed :)</p>
-                <div class="review-product">Overnight Lifting Mask</div>
+                <h3 class="review-title">Mâchoire Définie</h3>
+                <p class="review-text">Les gens m'ont demandé si j'avais fait quelque chose après avoir porté ce masque liftant ! Vraiment impressionnée :)</p>
+                <div class="review-product">Masque Liftant de Nuit</div>
                 <div class="review-helpful">
-                    <span>Was this helpful?</span>
+                    <span>Cet avis vous a-t-il été utile ?</span>
                     <span>40</span>
                     <span>1</span>
                 </div>
@@ -1249,15 +1430,15 @@
                     <img src="https://via.placeholder.com/40x40?text=Sabrina" alt="Sabrina" class="reviewer-avatar">
                     <div class="reviewer-info">
                         <div class="reviewer-name">Sabrina F.</div>
-                        <div class="reviewer-badge">Verified Buyer</div>
+                        <div class="reviewer-badge">Acheteur vérifié</div>
                     </div>
                 </div>
                 <div class="review-stars">★★★★★</div>
-                <h3 class="review-title">Works so good!</h3>
-                <p class="review-text">All the water in my skin dragged my face down. After wearing this all the water in my face is gone and you can actually see my Jaw. FINALLY!!</p>
-                <div class="review-product">Overnight Lifting Mask</div>
+                <h3 class="review-title">Fonctionne si bien !</h3>
+                <p class="review-text">Toute l'eau dans ma peau tirait mon visage vers le bas. Après avoir porté cela, toute l'eau de mon visage a disparu et on peut enfin voir ma mâchoire. ENFIN !!</p>
+                <div class="review-product">Masque Liftant de Nuit</div>
                 <div class="review-helpful">
-                    <span>Was this helpful?</span>
+                    <span>Cet avis vous a-t-il été utile ?</span>
                     <span>18</span>
                     <span>0</span>
                 </div>
@@ -1268,15 +1449,15 @@
                     <img src="https://via.placeholder.com/40x40?text=Patricia" alt="Patricia" class="reviewer-avatar">
                     <div class="reviewer-info">
                         <div class="reviewer-name">Patricia L.</div>
-                        <div class="reviewer-badge">Verified Buyer</div>
+                        <div class="reviewer-badge">Acheteur vérifié</div>
                     </div>
                 </div>
                 <div class="review-stars">★★★★★</div>
-                <h3 class="review-title">Lifts my Face</h3>
-                <p class="review-text">Helps lift my face makes me look younger and more fresh. Thank you :)</p>
-                <div class="review-product">Overnight Lifting Mask</div>
+                <h3 class="review-title">Lifte mon Visage</h3>
+                <p class="review-text">Aide à lifter mon visage, me donne l'air plus jeune et plus fraîche. Merci :)</p>
+                <div class="review-product">Masque Liftant de Nuit</div>
                 <div class="review-helpful">
-                    <span>Was this helpful?</span>
+                    <span>Cet avis vous a-t-il été utile ?</span>
                     <span>22</span>
                     <span>0</span>
                 </div>
@@ -1287,15 +1468,15 @@
                     <img src="https://via.placeholder.com/40x40?text=Zoe" alt="Zoe" class="reviewer-avatar">
                     <div class="reviewer-info">
                         <div class="reviewer-name">Zoe R.</div>
-                        <div class="reviewer-badge">Verified Buyer</div>
+                        <div class="reviewer-badge">Acheteur vérifié</div>
                     </div>
                 </div>
                 <div class="review-stars">★★★★★</div>
-                <h3 class="review-title">Highly Recommend</h3>
-                <p class="review-text">Wearing it over night and when I wake up I look so much better. Was wearing it every night now I only wear it whenever my face looks saggy. Great Product.</p>
-                <div class="review-product">Overnight Lifting Mask</div>
+                <h3 class="review-title">Je Recommande Vivement</h3>
+                <p class="review-text">Je le porte la nuit et quand je me réveille, j'ai l'air tellement mieux. Je le portais toutes les nuits, maintenant je ne le porte que lorsque mon visage semble affaissé. Excellent produit.</p>
+                <div class="review-product">Masque Liftant de Nuit</div>
                 <div class="review-helpful">
-                    <span>Was this helpful?</span>
+                    <span>Cet avis vous a-t-il été utile ?</span>
                     <span>11</span>
                     <span>0</span>
                 </div>
@@ -1303,80 +1484,80 @@
         </div>
     </div>
     
-    <!-- Trust Badges -->
+    <!-- Badges de Confiance -->
     <div class="trust-badges">
         <div class="badge">
-            <div class="badge-icon">🚚</div>
-            <div class="badge-text">Fast Shipping</div>
-            <div class="badge-text">Doorstep delivery</div>
+            <div class="badge-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16"> <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-4 0a1.5 1.5 0 0 1-1.5-1.5V3.5zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/> </svg></div>
+            <div class="badge-text">Livraison Rapide</div>
+            <div class="badge-text">Livraison à domicile</div>
         </div>
         <div class="badge">
-            <div class="badge-icon">🔄</div>
-            <div class="badge-text">Hassle-free exchange</div>
-            <div class="badge-text">No questions ask</div>
+            <div class="badge-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16"> <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/> <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 4.9 4c1.552 0 2.94-.707 3.857-1.818a.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/> </svg></div>
+            <div class="badge-text">Échange sans tracas</div>
+            <div class="badge-text">Aucune question posée</div>
         </div>
     </div>
     
     <!-- Newsletter -->
     <div class="newsletter">
-        <h3 class="newsletter-title">Want the chance to trial our new products?</h3>
-        <p class="newsletter-desc">Be the first to know about new collections and exclusive offers.</p>
+        <h3 class="newsletter-title">Vous voulez avoir la chance d'essayer nos nouveaux produits ?</h3>
+        <p class="newsletter-desc">Soyez le premier informé des nouvelles collections et des offres exclusives.</p>
         <div class="newsletter-form">
-            <input type="email" placeholder="Email" class="newsletter-input">
-            <button class="newsletter-button">→</button>
+            <input type="email" placeholder="E-mail" class="newsletter-input">
+            <button class="newsletter-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/> </svg></button>
         </div>
-        <p class="newsletter-note">* We Promise not to use your email for Spam! You can unsubscribe at any time.</p>
+        <p class="newsletter-note">* Nous promettons de ne pas utiliser votre e-mail pour du Spam ! Vous pouvez vous désinscrire à tout moment.</p>
     </div>
     
-    <!-- Footer -->
+    <!-- Pied de page -->
     <footer>
         <div class="footer-grid">
             <div class="footer-column">
-                <h3>Information</h3>
+                <h3>Informations</h3>
                 <ul>
                     <li><a href="#">Contact</a></li>
-                    <li><a href="#">Shipping & Returns</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Privacy policy</a></li>
+                    <li><a href="#">Livraison et Retours</a></li>
+                    <li><a href="#">Conditions d'utilisation</a></li>
+                    <li><a href="#">Politique de confidentialité</a></li>
                 </ul>
             </div>
             <div class="footer-column">
-                <h3>Shop</h3>
+                <h3>Boutique</h3>
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Accueil</a></li>
                     <li><a href="#">Contact</a></li>
-                    <li><a href="#">Tracking</a></li>
+                    <li><a href="#">Suivi de commande</a></li>
                 </ul>
             </div>
             <div class="footer-column">
-                <h3>Need to Get in Touch?</h3>
+                <h3>Besoin de nous contacter ?</h3>
                 <ul>
                     <li><a href="mailto:info@numiba.com">info@numiba.com</a></li>
-                    <li>Available - Monday - Friday 9am - 5pm CET</li>
+                    <li>Disponible - Lundi - Vendredi 9h - 17h CET</li>
                 </ul>
             </div>
             <div class="footer-column">
-                <h3>Subscribe to our emails</h3>
+                <h3>Abonnez-vous à nos e-mails</h3>
                 <div class="newsletter-form">
-                    <input type="email" placeholder="Email" class="newsletter-input">
-                    <button class="newsletter-button">→</button>
+                    <input type="email" placeholder="E-mail" class="newsletter-input">
+                    <button class="newsletter-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/> </svg></button>
                 </div>
             </div>
         </div>
         
         <div class="footer-bottom">
             <div class="country-selector">
-                EUR € | United Arab Emirates
+                EUR € | Émirats Arabes Unis
             </div>
             <div>© 2025, Numiba</div>
             <div style="margin-top: 15px; font-size: 11px; line-height: 1.5;">
-                Note that all content and resources provided on our website are not medical advice nor should they be used as a substitute for professional medical treatment. For medical concerns and/or emergencies, consult your health care provider and emergency services immediately.
+                Notez que tout le contenu et les ressources fournis sur notre site web ne constituent pas des conseils médicaux et ne doivent pas être utilisés comme substitut à un traitement médical professionnel. Pour des préoccupations médicales et/ou des urgences, consultez immédiatement votre fournisseur de soins de santé et les services d'urgence.
             </div>
         </div>
     </footer>
     
     <script>
-        // Cart functionality
+        // Fonctionnalité du panier
         const cart = {
             items: [],
             total: 0,
@@ -1392,7 +1573,7 @@
                         variant,
                         price,
                         quantity,
-                        image: 'https://via.placeholder.com/80x80?text=Product'
+                        image: 'https://via.placeholder.com/80x80?text=Produit' // Changé pour "Produit"
                     });
                 }
                 
@@ -1425,8 +1606,8 @@
                 cartItemsEl.innerHTML = '';
                 
                 if (this.items.length === 0) {
-                    cartItemsEl.innerHTML = '<p>Your cart is empty</p>';
-                    cartTotalEl.textContent = 'Total: €0.00';
+                    cartItemsEl.innerHTML = '<p>Votre panier est vide</p>'; // Traduit
+                    cartTotalEl.textContent = 'Total : 0,00 €'; // Format français
                     return;
                 }
                 
@@ -1437,21 +1618,21 @@
                         <img src="${item.image}" alt="${item.product}" class="cart-item-image">
                         <div class="cart-item-details">
                             <div class="cart-item-title">${item.product} - ${item.variant}</div>
-                            <div class="cart-item-price">€${item.price.toFixed(2)}</div>
+                            <div class="cart-item-price">${item.price.toFixed(2).replace('.', ',')} €</div>
                             <div class="cart-item-quantity">
                                 <button class="quantity-btn minus" data-index="${index}">-</button>
                                 <input type="number" value="${item.quantity}" min="1" class="quantity-input" data-index="${index}">
                                 <button class="quantity-btn plus" data-index="${index}">+</button>
                             </div>
-                            <div class="remove-item" data-index="${index}">Remove</div>
+                            <div class="remove-item" data-index="${index}">Supprimer</div>
                         </div>
-                    `;
+                    `; // "Remove" traduit en "Supprimer", format prix
                     cartItemsEl.appendChild(itemEl);
                 });
                 
-                cartTotalEl.textContent = `Total: €${this.total.toFixed(2)}`;
+                cartTotalEl.textContent = `Total : ${this.total.toFixed(2).replace('.', ',')} €`; // Format français
                 
-                // Add event listeners to new buttons
+                // Ajout des écouteurs d'événements aux nouveaux boutons
                 document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         const index = parseInt(e.target.getAttribute('data-index'));
@@ -1489,12 +1670,12 @@
             }
         };
         
-        // DOM Content Loaded
+        // Contenu DOM chargé
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize cart count
+            // Initialiser le compteur du panier
             cart.updateCartCount();
             
-            // Thumbnail click handler for each product hero section
+            // Gestionnaire de clic sur les miniatures pour chaque section de produit
             document.querySelectorAll('.product-hero').forEach(productHero => {
                 const mainImage = productHero.querySelector('.main-image');
                 const thumbnails = productHero.querySelectorAll('.thumbnail');
@@ -1502,19 +1683,24 @@
                 thumbnails.forEach(thumbnail => {
                     thumbnail.addEventListener('click', function() {
                         mainImage.src = this.src;
+                        mainImage.alt = this.alt; // Mettre à jour l'alt de l'image principale
                         mainImage.classList.remove('fade-in');
-                        void mainImage.offsetWidth; // Trigger reflow
+                        void mainImage.offsetWidth; // Déclencher le reflow
                         mainImage.classList.add('fade-in');
+
+                        // Gérer la classe active pour les miniatures
+                        thumbnails.forEach(t => t.classList.remove('active-thumb'));
+                        this.classList.add('active-thumb');
                     });
                 });
 
-                // Automatically click the first thumbnail on page load for each product
+                // Cliquer automatiquement sur la première miniature au chargement de la page pour chaque produit
                 if (thumbnails.length > 0) {
-                    thumbnails[0].click();
+                    thumbnails[0].click(); // Cela déclenchera aussi l'ajout de la classe active-thumb
                 }
             });
             
-            // Variant selection
+            // Sélection de variante
             const variantOptions = document.querySelectorAll('.variant-option');
             variantOptions.forEach(option => {
                 option.addEventListener('click', function() {
@@ -1523,14 +1709,17 @@
                 });
             });
             
-            // Simulate cart notice update
+            // Simuler la mise à jour de l'avis du panier
             setInterval(() => {
                 const randomCount = Math.floor(Math.random() * 10) + 1;
-                document.querySelector('.cart-notice').textContent = 
-                    `Hurry! ${randomCount} have this in their Cart right now.`;
+                const cartNotice = document.querySelector('.cart-notice');
+                if (cartNotice) { // Vérifier si l'élément existe
+                    cartNotice.textContent = 
+                        `Vite ! ${randomCount} personnes ont cet article dans leur panier en ce moment.`; // Traduit
+                }
             }, 5000);
             
-            // Menu toggle
+            // Bascule du menu
             const menuIcon = document.querySelector('.menu-icon');
             const sideMenu = document.querySelector('.side-menu');
             const menuOverlay = document.querySelector('.menu-overlay');
@@ -1545,7 +1734,7 @@
                 menuOverlay.classList.remove('active');
             });
             
-            // Cart toggle
+            // Bascule du panier
             const cartIcon = document.querySelector('.cart-icon');
             const cartSidebar = document.querySelector('.cart-sidebar');
             const closeCart = document.querySelector('.close-cart');
@@ -1558,28 +1747,53 @@
                 cartSidebar.classList.remove('active');
             });
             
-            // Add to cart buttons
-            document.querySelector('.add-to-cart').addEventListener('click', function() {
-                const selectedVariant = document.querySelector('.variant-option.selected').textContent;
-                const price = 35.99; // Current sale price
-                
-                cart.addItem('Overnight Lifting Mask', selectedVariant, price);
-                cartSidebar.classList.add('active');
-                
-                // Show confirmation
-                alert(`${selectedVariant} has been added to your cart!`);
+            // Boutons Ajouter au panier (pour les produits principaux)
+            // Note: il y a deux boutons "add-to-cart", il faut les gérer individuellement ou avec querySelectorAll
+            document.querySelectorAll('.add-to-cart').forEach((button, index) => {
+                button.addEventListener('click', function() {
+                    // Déterminer le produit en fonction de l'index du bouton ou d'un attribut data
+                    let productName = "Produit Inconnu";
+                    let productPrice = 0;
+                    let selectedVariantText = "Standard";
+
+                    const productHero = this.closest('.product-hero');
+                    if (productHero) {
+                        const titleEl = productHero.querySelector('.product-title');
+                        const priceEl = productHero.querySelector('.sale-price');
+                        const variantEl = productHero.querySelector('.variant-option.selected');
+
+                        if (titleEl) productName = titleEl.textContent;
+                        if (priceEl) productPrice = parseFloat(priceEl.textContent.replace('$', '').replace(',', '.'));
+                        if (variantEl) selectedVariantText = variantEl.textContent;
+                        else if (index === 0) { // Premier produit (Masque Liftant de Nuit)
+                           // Pour le premier produit, il n'y a pas de selecteur de variante explicite dans le HTML fourni.
+                           // On garde "Standard" ou on pourrait ajouter un sélecteur si besoin.
+                           // productName = "Masque Liftant de Nuit"; // Déjà récupéré par titleEl
+                           // productPrice = 22.99; // Déjà récupéré par priceEl
+                        } else if (index === 1) { // Deuxième produit (Masque Luminothérapie)
+                           // productName = "Masque de Luminothérapie"; // Déjà récupéré par titleEl
+                           // productPrice = 39.99; // Déjà récupéré par priceEl
+                        }
+                    }
+                    
+                    cart.addItem(productName, selectedVariantText, productPrice);
+                    cartSidebar.classList.add('active');
+                    
+                    // Afficher la confirmation
+                    alert(`${productName} (${selectedVariantText}) a été ajouté à votre panier !`); // Traduit
+                });
             });
             
-            // Product card buttons
+            // Boutons des cartes de produits recommandés
             document.querySelectorAll('.product-card-button').forEach(button => {
                 button.addEventListener('click', function() {
                     const productCard = this.closest('.product-card');
                     const productName = productCard.querySelector('.product-card-title').textContent;
                     const priceText = productCard.querySelector('.product-card-price').textContent;
                     
-                    // Extract price from text (simple approach)
-                    let price = 16.99; // Default
-                    const priceMatch = priceText.match(/€(\d+,\d+)/);
+                    // Extraire le prix du texte (approche simple)
+                    let price = 16.99; // Défaut
+                    const priceMatch = priceText.match(/(\d+,\d+)\s*€/); // Ajusté pour le format français
                     if (priceMatch) {
                         price = parseFloat(priceMatch[1].replace(',', '.'));
                     }
@@ -1587,22 +1801,22 @@
                     cart.addItem(productName, 'Standard', price);
                     cartSidebar.classList.add('active');
                     
-                    // Show confirmation
-                    alert(`${productName} has been added to your cart!`);
+                    // Afficher la confirmation
+                    alert(`${productName} a été ajouté à votre panier !`); // Traduit
                 });
             });
             
-            // Checkout button
+            // Bouton Passer la commande
             document.querySelector('.checkout-btn').addEventListener('click', function() {
                 if (cart.items.length === 0) {
-                    alert('Your cart is empty!');
+                    alert('Votre panier est vide !'); // Traduit
                     return;
                 }
                 
-                alert('Proceeding to checkout! In a real implementation, this would redirect to checkout page.');
+                alert('Passage à la caisse ! Dans une implémentation réelle, cela redirigerait vers la page de paiement.'); // Traduit
             });
             
-            // Image zoom modal
+            // Modale de zoom d'image
             const modal = document.querySelector('.modal');
             const modalImg = document.getElementById('zoomed-image');
             const closeModal = document.querySelector('.close-modal');
@@ -1610,7 +1824,7 @@
             document.querySelectorAll('.main-image, .comparison-image, .product-card-image').forEach(img => {
                 img.addEventListener('click', function() {
                     modal.style.display = 'flex';
-                    modalImg.src = this.src.replace(/\/\d+x\d+/, '/800x800');
+                    modalImg.src = this.src.replace(/\/\d+x\d+/, '/800x800'); // Garder la logique de remplacement de taille
                 });
             });
             
@@ -1624,30 +1838,78 @@
                 }
             });
             
-            // Newsletter form
+            // Formulaire de newsletter
             document.querySelectorAll('.newsletter-button').forEach(button => {
                 button.addEventListener('click', function() {
                     const input = this.previousElementSibling;
                     if (input.value.includes('@')) {
-                        alert('Thank you for subscribing!');
+                        alert('Merci de vous être abonné !'); // Traduit
                         input.value = '';
                     } else {
-                        alert('Please enter a valid email address');
+                        alert('Veuillez entrer une adresse e-mail valide.'); // Traduit
                     }
                 });
             });
             
-            // Review helpful buttons
+            // Boutons d'aide pour les avis
             document.querySelectorAll('.review-helpful span').forEach(span => {
-                if (!span.textContent.match(/Was this helpful|\d+/)) return;
+                // Ajuster le regex pour correspondre au texte français
+                if (!span.textContent.match(/Cet avis vous a-t-il été utile ?|\d+/)) return; 
                 
                 span.addEventListener('click', function() {
-                    if (this.textContent === 'Was this helpful') return;
+                    if (this.textContent === 'Cet avis vous a-t-il été utile ?') return; // Ne pas incrémenter le texte de la question
                     
                     let count = parseInt(this.textContent);
                     this.textContent = count + 1;
                 });
             });
+
+            // Logique de sélection de produit
+            const productSelectors = document.querySelectorAll('.product-selector');
+            const productHeroes = document.querySelectorAll('.product-hero');
+
+            function showProduct(productId) {
+                productHeroes.forEach(hero => {
+                    if (hero.id === productId) {
+                        // Rétablir le style d'affichage original basé sur les media queries
+                        // Pour .product-hero, c'est 'flex' par défaut et 'column' sur mobile,
+                        // mais JavaScript ne peut pas facilement rétablir cela directement sans plus de complexité.
+                        // La solution simple est de ne pas mettre de display: none; sur celui qu'on veut montrer
+                        // et s'assurer qu'il hérite ou a son propre style CSS.
+                        // Une approche plus robuste serait d'ajouter/retirer une classe 'hidden'.
+                        // Pour l'instant, on va utiliser '' qui laisse CSS gérer.
+                        hero.style.display = ''; // Laisse CSS gérer (devrait être 'flex' ou 'block' selon CSS)
+                         // Forcer le recalcul du layout si on utilise des animations au changement
+                        void hero.offsetWidth;
+                        hero.classList.add('fade-in'); // Réappliquer l'animation si souhaité
+
+                    } else {
+                        hero.style.display = 'none';
+                        hero.classList.remove('fade-in');
+                    }
+                });
+
+                productSelectors.forEach(selector => {
+                    if (selector.dataset.productId === productId) {
+                        selector.classList.add('active-selector');
+                    } else {
+                        selector.classList.remove('active-selector');
+                    }
+                });
+            }
+
+            productSelectors.forEach(selector => {
+                selector.addEventListener('click', function() {
+                    const productId = this.dataset.productId;
+                    showProduct(productId);
+                });
+            });
+
+            // Afficher le premier produit par défaut
+            if (productSelectors.length > 0 && productHeroes.length > 0) {
+                showProduct(productSelectors[0].dataset.productId);
+            }
+
         });
     </script>
 </body>
