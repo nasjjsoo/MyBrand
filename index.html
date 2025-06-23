@@ -1432,6 +1432,11 @@
                     mainImage.classList.add('fade-in');
                 });
             });
+
+            // Automatically click the first thumbnail on page load
+            if (thumbnails.length > 0) {
+                thumbnails[0].click();
+            }
             
             // Variant selection
             const variantOptions = document.querySelectorAll('.variant-option');
