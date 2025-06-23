@@ -1200,7 +1200,25 @@
 <!-- Results Section -->
 <div class="results-section">
     <h2 class="results-header">Professional Skin Therapy at Home</h2>
-
+    
+    <div class="benefits-grid">
+        <div class="benefit-item">
+            <img src="710E7veA9BL._SL1500_.jpg" alt="Acne Reduction" class="benefit-image">
+            <h3>Acne Reduction</h3>
+            <p>Blue light targets acne-causing bacteria</p>
+        </div>
+        <div class="benefit-item">
+            <img src="81WKaSgNSNL._SL1500_.jpg" alt="Anti-Aging" class="benefit-image">
+            <h3>Anti-Aging</h3>
+            <p>Red light stimulates collagen production</p>
+        </div>
+        <div class="benefit-item">
+            <img src="91NMHU-+DyL._SL1500_.jpg" alt="Skin Brightening" class="benefit-image">
+            <h3>Skin Brightening</h3>
+            <p>Even out skin tone and reduce pigmentation</p>
+        </div>
+    </div>
+</div>
 
     <!-- Recommended Products -->
     <div class="recommended-products">
@@ -1499,26 +1517,25 @@
             // Initialize cart count
             cart.updateCartCount();
             
-            // Thumbnail click handler
-            const thumbnails = document.querySelectorAll('.thumbnail');
-            const mainImage = document.querySelector('.main-image');
-            
-            thumbnails.forEach(thumbnail => {
-                thumbnail.addEventListener('click', function() {
-                    // The new image names (e.g., "71vB0ZpsSUS.SL1500.jpg")
-                    // do not follow the '80x80' to '600x600' pattern.
-                    // So, we should directly use the thumbnail's src.
-                    mainImage.src = this.src; 
-                    mainImage.classList.remove('fade-in');
-                    void mainImage.offsetWidth; // Trigger reflow
-                    mainImage.classList.add('fade-in');
-                });
-            });
+            // Thumbnail click handler for each product hero section
+            document.querySelectorAll('.product-hero').forEach(productHero => {
+                const mainImage = productHero.querySelector('.main-image');
+                const thumbnails = productHero.querySelectorAll('.thumbnail');
 
-            // Automatically click the first thumbnail on page load
-            if (thumbnails.length > 0) {
-                thumbnails[0].click();
-            }
+                thumbnails.forEach(thumbnail => {
+                    thumbnail.addEventListener('click', function() {
+                        mainImage.src = this.src;
+                        mainImage.classList.remove('fade-in');
+                        void mainImage.offsetWidth; // Trigger reflow
+                        mainImage.classList.add('fade-in');
+                    });
+                });
+
+                // Automatically click the first thumbnail on page load for each product
+                if (thumbnails.length > 0) {
+                    thumbnails[0].click();
+                }
+            });
             
             // Variant selection
             const variantOptions = document.querySelectorAll('.variant-option');
