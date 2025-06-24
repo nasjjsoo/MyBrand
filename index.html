@@ -22,9 +22,9 @@
             font-family: 'Poppins', sans-serif; 
             color: #333333; 
             background-color: #ffffff; 
-            line-height: 1.7; 
-            font-size: 16px; 
-            padding-top: 73px; /* Adjusted to header's final fixed top position */
+            line-height: 1.65; /* Slightly reduced line-height for a tighter look */
+            font-size: 15px; /* Reduced base font size for elegance */
+            padding-top: 133px; 
             -webkit-font-smoothing: antialiased; 
             -moz-osx-font-smoothing: grayscale; 
         }
@@ -39,13 +39,13 @@
             font-family: 'Playfair Display', serif; 
             font-weight: 700; 
             color: #111111; 
-            line-height: 1.3;
-            margin-bottom: 0.6em; 
+            line-height: 1.25; /* Tighter line height for Playfair */
+            margin-bottom: 0.5em; /* Slightly reduced margin */
         }
 
-        h1, .product-title { font-size: 32px; } 
-        h2, .section-title, .results-header { font-size: 26px; } 
-        h3, .newsletter-title, .review-title, .details-title { font-size: 22px; } 
+        h1, .product-title { font-size: 30px; } /* Reduced */
+        h2, .section-title, .results-header { font-size: 24px; } /* Reduced */
+        h3, .newsletter-title, .review-title, .details-title { font-size: 20px; } /* Reduced */
         
         .logo { 
             font-family: 'Playfair Display', serif; 
@@ -618,29 +618,29 @@
         }
 
         .product-description p {
-            margin-bottom: 1.2em; /* Slightly more space between paragraphs */
+            margin-bottom: 1.1em; /* Adjusted */
         }
 
         .product-description h3 { /* Handled by global H3 */
-            font-size: 20px; 
+            font-size: 18px; /* Reduced */
             font-weight: 700; 
-            margin-top: 30px; 
-            margin-bottom: 15px; 
+            margin-top: 25px; 
+            margin-bottom: 12px; 
             color: #111; 
         }
         
         /* Features List */
         .features {
-            margin: 30px 0; 
-            padding-left: 0; /* Remove indent, icon provides visual separation */
+            margin: 25px 0; 
+            padding-left: 0; 
         }
         
         .feature-item {
             display: flex;
             align-items: flex-start; 
-            margin-bottom: 18px; 
+            margin-bottom: 15px; 
             font-family: 'Poppins', sans-serif;
-            font-size: 16px; /* Larger feature text */
+            font-size: 15px; /* Reduced */
             color: #333;
         }
         
@@ -1384,63 +1384,63 @@
             margin: 0;
         }
 
-        /* Bottom Navigation Bar */
-        .bottom-nav-bar {
-            display: none; /* Hidden by default, shown on mobile */
+        /* New Main Header Bar (Replaces old header and bottom-nav-bar logic for top positioning) */
+        .main-header-bar {
+            display: flex;
+            justify-content: space-between; /* Distributes space between menu, logo, cart */
+            align-items: center;
+            padding: 10px 20px; /* Adjusted padding */
+            background-color: rgba(255, 255, 255, 0.97); /* Slightly more opaque */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07); /* Softer shadow */
             position: fixed;
-            bottom: 0;
+            top: 73px; /* Position below notice & shipping bars */
             left: 0;
             right: 0;
-            height: 60px;
-            background-color: #ffffff;
-            border-top: 1px solid #e0e0e0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-            z-index: 999; /* Below header/sidebars but above content */
-            justify-content: space-around;
-            align-items: center;
-            padding: 0 10px;
+            z-index: 999; /* High z-index */
+            height: 60px; /* Defined height */
         }
 
-        .bottom-nav-bar .nav-item {
+        .main-header-bar .menu-icon {
+            font-size: 24px; /* Slightly larger menu icon */
+            color: #333;
+            cursor: pointer;
+            flex-basis: 50px; /* Give it a base width */
+            text-align: left;
+        }
+        .main-header-bar .menu-icon:hover {
+            color: #E91E63;
+        }
+
+        .main-header-bar .logo {
+            font-family: 'Playfair Display', serif; 
+            font-size: 28px; 
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #000;
+            /* Centering the logo when space-between is used on the parent: */
+            position: absolute; 
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .main-header-bar .cart-wrapper {
+            flex-basis: 50px; /* Give it a base width */
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: #757575; /* Grey for inactive items */
-            font-size: 10px;
-            flex-grow: 1;
-            height: 100%;
-            position: relative; /* For cart count positioning */
-            transition: color 0.3s ease;
-        }
-
-        .bottom-nav-bar .nav-item svg {
-            width: 24px;
-            height: 24px;
-            margin-bottom: 2px;
-        }
-
-        .bottom-nav-bar .nav-item.active,
-        .bottom-nav-bar .nav-item:hover {
-            color: #000000; /* Black for active/hover items - matches new theme */
+            justify-content: flex-end;
+            /* Ensure they align correctly within the new header */
+            position: relative; /* Keeps cart-count positioned correctly */
         }
         
-        .bottom-nav-bar .nav-item .cart-count-bottom {
-            position: absolute;
-            top: 2px; /* Adjusted for bottom nav */
-            right: calc(50% - 25px); /* Center above icon, adjust as needed */
-            background-color: #E91E63; /* Same as header cart count */
-            color: white;
-            border-radius: 50%;
-            width: 18px; 
-            height: 18px;
-            font-size: 10px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #fff;
+        /* Remove styles for old .bottom-nav-bar elements if they conflict or are no longer needed */
+        /* e.g., .bottom-nav-bar .nav-item, .cart-count-bottom */
+        .bottom-nav-bar .nav-item, /* Assuming these are from the old bottom bar */
+        .bottom-nav-bar .nav-item svg,
+        .bottom-nav-bar .nav-item.active,
+        .bottom-nav-bar .nav-item:hover,
+        .cart-count-bottom {
+            display: none !important; /* Hide old bottom bar elements forcefully */
         }
 
 
@@ -1539,15 +1539,7 @@
         LIVRAISON GRATUITE
     </div>
     
-    <!-- En-tête / Barre de navigation -->
-    <header>
-        <div class="menu-icon">☰</div>
-        <div class="logo">numiba</div>
-        <div class="cart-wrapper">
-            <div class="cart-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16"> <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.74 11.91A.5.5 0 0 1 4 12H2.5a.5.5 0 0 1-.5-.5zM3.14 4l.721 2.884L13.28 7.5l.666-3.333H3.14zM5 12.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm-1.5.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm5.5 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/> </svg></div>
-            <div class="cart-count">0</div>
-        </div>
-    </header>
+    <!-- الهيدر القديم تم حذفه -->
     
     <!-- Menu latéral -->
     <div class="side-menu">
@@ -1558,6 +1550,11 @@
             <li><a href="#">Meilleures ventes</a></li>
             <li><a href="#">À propos</a></li>
             <li><a href="#">Contact</a></li>
+            <li class="divider"><hr></li> 
+            <li><a href="#">Livraison et Retours</a></li>
+            <li><a href="#">Conditions d'utilisation</a></li>
+            <li><a href="#">Politique de confidentialité</a></li>
+            <li><a href="#">Suivi de commande</a></li>
         </ul>
     </div>
     
@@ -1596,10 +1593,12 @@
         <div class="product-selector" data-product-id="product-mask">
             <img src="pack_57a4d1b2-d2cf-40aa-8e0f-13e5010a0199.webp" alt="Masque Liftant de Nuit">
             <h3>Masque Liftant de Nuit</h3>
+            <p class="product-selector-price">€22,99</p> <!-- Placeholder price -->
         </div>
         <div class="product-selector" data-product-id="product-therapy-mask">
             <img src="8108jNqNHYL._SL1500_.jpg" alt="Masque de Luminothérapie">
             <h3>Masque de Luminothérapie</h3>
+            <p class="product-selector-price">€39,99</p> <!-- Placeholder price -->
         </div>
     </div>
 </div>
@@ -1680,10 +1679,9 @@
                 <li><strong>Nombre d'unités :</strong> 5.0 Once</li>
             </ul>
         </div>
-    </div>
-</div>
-    
-    <!-- Section Résultats -->
+    </div> <!-- Fin de .product-info pour #product-mask -->
+
+    <!-- Section Résultats - Spécifique au Masque Liftant de Nuit -->
     <div class="results-section">
         <h2 class="results-header">Adieu Peau Relâchée, Bonjour Mâchoire Définie</h2>
         
@@ -1735,7 +1733,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> <!-- Fin de .results-section -->
+</div> <!-- Fin de .product-hero #product-mask -->
     
     <!-- Section Produit Principal -->
 <div class="product-hero" id="product-therapy-mask" data-product-name="Masque de Luminothérapie à Lumière Bleue">
@@ -1961,20 +1960,20 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-column">
-                <h3>Informations</h3>
+                <h3>À Propos de Numiba</h3> <!-- Titre أكثر ملاءمة -->
                 <ul>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">Livraison et Retours</a></li>
-                    <li><a href="#">Conditions d'utilisation</a></li>
-                    <li><a href="#">Politique de confidentialité</a></li>
+                    <!-- <li><a href="#">Qui sommes-nous ?</a></li> <!-- يمكن إضافته للقائمة الجانبية لاحقاً إذا لزم الأمر -->
+                    <!-- <li><a href="#">Nos Engagements</a></li> -->
+                    <!-- الروابط الأساسية تم نقلها للقائمة الجانبية -->
                 </ul>
+                 <p>Numiba est dédiée à offrir des produits de beauté innovants et de haute qualité pour révéler votre éclat naturel.</p> <!-- نص وصفي قصير -->
             </div>
             <div class="footer-column">
-                <h3>Boutique</h3>
+                <h3>Service Client</h3>
                 <ul>
-                    <li><a href="#">Accueil</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">Suivi de commande</a></li>
+                    <!-- <li><a href="#">Contactez-nous</a></li> <!-- موجود في القائمة الجانبية -->
+                    <li><a href="#">FAQ</a></li> <!-- مثال لرابط مفيد -->
+                    <!-- "Livraison et Retours", "Suivi de commande" تم نقلها للقائمة الجانبية -->
                 </ul>
             </div>
             <div class="footer-column">
@@ -2004,25 +2003,14 @@
         </div>
     </footer>
 
-    <!-- Bottom Navigation Bar -->
-    <nav class="bottom-nav-bar">
-        <a href="#" class="nav-item active" aria-label="Accueil">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-            <span>Accueil</span>
-        </a>
-        <a href="#" class="nav-item" aria-label="Boutique">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" x2="21" y1="6" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-            <span>Boutique</span>
-        </a>
-        <a href="#" class="nav-item cart-nav-item" aria-label="Panier">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-            <span class="cart-count-bottom">0</span>
-            <span>Panier</span>
-        </a>
-        <a href="#" class="nav-item" aria-label="Compte">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            <span>Compte</span>
-        </a>
+    <!-- New Main Header (Previously Bottom Navigation Bar) -->
+    <nav class="main-header-bar"> <!-- Renamed class for clarity -->
+        <div class="menu-icon">☰</div>
+        <div class="logo">numiba</div>
+        <div class="cart-wrapper">
+            <div class="cart-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16"> <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.74 11.91A.5.5 0 0 1 4 12H2.5a.5.5 0 0 1-.5-.5zM3.14 4l.721 2.884L13.28 7.5l.666-3.333H3.14zM5 12.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm-1.5.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm5.5 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/> </svg></div>
+            <div class="cart-count">0</div> <!-- This will be updated by JS -->
+        </div>
     </nav>
 
     <!-- Scroll to Top Button -->
