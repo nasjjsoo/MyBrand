@@ -22,8 +22,8 @@
             font-family: 'Poppins', sans-serif; 
             color: #333333; 
             background-color: #ffffff; 
-            line-height: 1.65; /* Slightly reduced line-height for a tighter look */
-            font-size: 15px; /* Reduced base font size for elegance */
+            line-height: 1.6; /* Adjusted line-height */
+            font-size: 14px; /* Reduced base font size */
             padding-top: 133px; 
             -webkit-font-smoothing: antialiased; 
             -moz-osx-font-smoothing: grayscale; 
@@ -37,24 +37,72 @@
         h3, /* .product-card-title is handled separately */ .newsletter-title, .review-title, .details-title,
         .results-header { 
             font-family: 'Playfair Display', serif; 
-            font-weight: 700; 
+            font-weight: 600; /* Slightly less bold */
             color: #111111; 
-            line-height: 1.25; /* Tighter line height for Playfair */
-            margin-bottom: 0.5em; /* Slightly reduced margin */
+            line-height: 1.2; /* Tighter line height */
+            margin-bottom: 0.4em; /* Slightly reduced margin */
         }
 
-        h1, .product-title { font-size: 30px; } /* Reduced */
-        h2, .section-title, .results-header { font-size: 24px; } /* Reduced */
-        h3, .newsletter-title, .review-title, .details-title { font-size: 20px; } /* Reduced */
+        h1, .product-title { font-size: 26px; } /* Reduced */
+        h2, .section-title, .results-header { font-size: 22px; } /* Reduced */
+        h3, .newsletter-title, .review-title, .details-title, .product-selector h3 { font-size: 18px; } /* Reduced */
         
         .logo { 
             font-family: 'Playfair Display', serif; 
             font-weight: 700; 
-            font-size: 28px; 
-            letter-spacing: 1px; 
+            font-size: 26px; /* Reduced */
+            letter-spacing: 0.5px; /* Reduced */
             color: #000000;
         }
         
+        /* Reducing general text sizes */
+        p, span, div, li, a, button, input, label {
+            font-size: 14px; /* Base for most text */
+        }
+        .notice-bar { font-size: 12px; }
+        .shipping-bar { font-size: 13px; }
+        .side-menu a { font-size: 15px; }
+        .cart-item-title { font-size: 14px; }
+        .cart-item-price { font-size: 14px; }
+        .remove-item { font-size: 12px; }
+        .cart-total { font-size: 18px; }
+        .checkout-btn { font-size: 15px; }
+        .breadcrumbs { font-size: 13px; }
+        .rating span { font-size: 14px; }
+        .variant-title { font-size: 15px; }
+        .variant-option { font-size: 14px; }
+        .regular-price { font-size: 18px; }
+        .sale-price { font-size: 30px; } /* Kept larger for emphasis */
+        .price-note { font-size: 13px; }
+        .product-description { font-size: 15px; }
+        .product-description h3 { font-size: 16px; }
+        .feature-item { font-size: 14px; }
+        .product-details li { font-size: 15px; }
+        .cart-notice { font-size: 14px; }
+        .add-to-cart { font-size: 15px; }
+        .testimonial-text { font-size: 15px; }
+        .results-stats { font-size: 18px; }
+        .comparison-label { font-size: 14px; }
+        .product-card-title { font-size: 16px; } /* Specific for product cards */
+        .product-card-price { font-size: 14px; }
+        .product-card-button { font-size: 14px; }
+        .review-text { font-size: 14px; }
+        .review-product { font-size: 13px; }
+        .review-helpful { font-size: 12px; }
+        .badge-text { font-size: 15px; }
+        .badge-text:last-of-type { font-size: 13px; }
+        .newsletter-desc { font-size: 15px; }
+        .newsletter-input { font-size: 15px; }
+        .newsletter-note { font-size: 12px; }
+        .footer-column li { font-size: 14px; }
+        .footer-column p { font-size: 13px; }
+        .footer-bottom { font-size: 13px; }
+        .footer-bottom div:last-child { font-size: 11px; }
+        .product-selector-price { font-size: 15px; }
+        .view-details-btn { font-size: 14px; }
+        .back-to-selector-btn { font-size: 14px; }
+
+
         /* ==========================================================================
            2. Header, Navigation & Sidebars
            ========================================================================== */
@@ -1336,53 +1384,104 @@
         }
 
         .product-selector-section .section-title {
-            margin-bottom: 30px; /* Plus d'espace */
-            font-size: 24px; /* Taille de titre légèrement augmentée */
-            font-weight: 700; /* Plus affirmé */
+            margin-bottom: 25px; /* Adjusted */
+            font-size: 20px; /* Reduced */
+            font-weight: 600; /* Adjusted */
         }
 
         .product-selectors {
             display: flex;
-            justify-content: center;
-            gap: 25px; /* Espacement augmenté */
-            flex-wrap: wrap;
+            justify-content: center; /* Can be changed to space-around or space-between if preferred */
+            gap: 20px; /* Adjusted */
+            flex-wrap: wrap; /* Allows wrapping on smaller screens */
+            padding: 0 15px; /* Add some horizontal padding */
         }
 
         .product-selector {
-            border: 1px solid #eee; /* Bordure très fine et claire */
-            padding: 20px; 
+            border: 1px solid #e0e0e0; /* Slightly darker border */
+            padding: 15px; /* Adjusted */
             border-radius: 8px;
             cursor: pointer;
-            transition: border-color 0.3s ease, transform 0.3s ease; /* Transition sans box-shadow */
-            width: 280px; 
-            background-color: white;
-            /* box-shadow: 0 2px 8px rgba(0,0,0,0.05); Ombre supprimée */
+            transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            width: clamp(220px, 100%, 280px); /* Responsive width: min, preferred, max */
+            background-color: #fff;
+            text-align: center; /* Center content */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
 
         .product-selector:hover {
-            border-color: #000; 
-            transform: translateY(-5px);
-            /* box-shadow: 0 5px 15px rgba(0,0,0,0.1); Ombre supprimée */
+            border-color: #E91E63; /* Accent color on hover */
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         .product-selector.active-selector {
-            border-color: #000; 
-            /* box-shadow: 0 5px 15px rgba(0,0,0,0.12); Ombre supprimée */
+            border-color: #E91E63; 
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15); /* Pinkish shadow for active */
         }
 
         .product-selector img {
             width: 100%;
-            max-width: 200px; /* Taille max de l'image */
+            max-width: 180px; /* Adjusted */
             height: auto;
-            margin-bottom: 10px;
+            margin-bottom: 12px; /* Adjusted */
             border-radius: 6px;
+            object-fit: cover; /* Ensure images cover the area nicely */
         }
 
         .product-selector h3 {
-            font-size: 16px;
-            color: #333;
-            margin: 0;
+            /* font-size is handled globally now */
+            color: #222; /* Darker text */
+            margin-bottom: 8px; /* Space below title */
+            font-weight: 600;
         }
+        .product-selector-price {
+            /* font-size is handled globally */
+            color: #E91E63; /* Accent color for price */
+            font-weight: 600;
+            margin-bottom: 15px; /* Space before button */
+        }
+
+        .view-details-btn {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px 18px; /* Adjusted */
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            width: 100%; /* Make button full width of its container */
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .view-details-btn:hover {
+            background-color: #E91E63; /* Accent color on hover */
+        }
+        
+        .product-view-container {
+            padding: 20px;
+            margin-top: 20px; /* Space from breadcrumbs or header */
+        }
+
+        .back-to-selector-btn {
+            display: inline-block; /* To allow margin and padding */
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ddd;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+            margin-bottom: 25px; /* Space below button */
+            font-weight: 500;
+        }
+
+        .back-to-selector-btn:hover {
+            background-color: #e0e0e0;
+            border-color: #ccc;
+        }
+
 
         /* New Main Header Bar (Replaces old header and bottom-nav-bar logic for top positioning) */
         .main-header-bar {
@@ -1582,251 +1681,229 @@
     </div>
     
     <!-- Fil d'Ariane -->
-    <div class="breadcrumbs">
+    <div class="breadcrumbs" style="display: none;"> <!-- Initially hidden -->
         Collections <span>/</span> Meilleures Ventes
     </div>
     
-<!-- Section de sélection des produits -->
-<div class="product-selector-section">
-    <h2 class="section-title">Choisissez un produit à explorer</h2>
-    <div class="product-selectors">
-        <div class="product-selector" data-product-id="product-mask">
-            <img src="pack_57a4d1b2-d2cf-40aa-8e0f-13e5010a0199.webp" alt="Masque Liftant de Nuit">
-            <h3>Masque Liftant de Nuit</h3>
-            <p class="product-selector-price">€22,99</p> <!-- Placeholder price -->
-        </div>
-        <div class="product-selector" data-product-id="product-therapy-mask">
-            <img src="8108jNqNHYL._SL1500_.jpg" alt="Masque de Luminothérapie">
-            <h3>Masque de Luminothérapie</h3>
-            <p class="product-selector-price">€39,99</p> <!-- Placeholder price -->
-        </div>
-    </div>
-</div>
+<div id="page-container"> <!-- Main container for product selection and product view -->
 
-<!-- Section Produit Principal -->
-<div class="product-hero" id="product-mask" data-product-name="Masque Liftant de Nuit">
-    <div class="main-image-container">
-        <img src="71vB0ZpsSUS.SL1500.jpg" alt="Ensemble d'exerciseur de mâchoire anti-âge et bandage liftant" class="main-image">
-        
-        <div class="thumbnail-container">
-            <img src="pack_57a4d1b2-d2cf-40aa-8e0f-13e5010a0199.webp" alt="Miniature produit 1" class="thumbnail">
-            <img src="H341bd4e373d042d5b87f953231f1f66ap.webp" alt="Miniature produit 2" class="thumbnail">
-            <img src="newp_pic_jawline_creme.webp" alt="Miniature produit 3" class="thumbnail">
-            <img src="71gj9pgriHS._SL1500_.jpg" alt="Miniature produit 5" class="thumbnail">
-            <img src="71uv33UjZnS._SL1500_.jpg" alt="Miniature produit 6" class="thumbnail">
-            <img src="71vB0ZpsSUS._SL1500_.jpg" alt="Miniature produit 7" class="thumbnail">
+    <!-- Section de sélection des produits -->
+    <div class="product-selector-section">
+        <h2 class="section-title">Choisissez un produit à explorer</h2>
+        <div class="product-selectors">
+            <div class="product-selector" data-product-id="product-mask">
+                <img src="pack_57a4d1b2-d2cf-40aa-8e0f-13e5010a0199.webp" alt="Masque Liftant de Nuit">
+                <h3>Masque Liftant de Nuit</h3>
+                <p class="product-selector-price">€22,99</p>
+                <button class="view-details-btn">Voir les détails</button>
+            </div>
+            <div class="product-selector" data-product-id="product-therapy-mask">
+                <img src="8108jNqNHYL._SL1500_.jpg" alt="Masque de Luminothérapie">
+                <h3>Masque de Luminothérapie</h3>
+                <p class="product-selector-price">€39,99</p>
+                <button class="view-details-btn">Voir les détails</button>
+            </div>
         </div>
     </div>
-    
-    <div class="product-info">
-        <div class="rating">
-            <span class="stars">★★★★★</span>
-            <span>4.8 | 770 Avis</span>
-        </div>
-        
-        <h1 class="product-title">Masque Liftant de Nuit</h1>
-        
-        <!-- Section Prix -->
-        <div class="price-section">
-            <span class="sale-price">22,99 $</span>
-            <span class="price-note">(3,60 $ / once)</span>
-        </div>
-        
-        
-        <!-- Section Ajouter au Panier -->
-        <div class="add-to-cart-section">
-            <div class="cart-notice">Plus que 5 en stock - commandez vite.</div>
-            <button class="add-to-cart">AJOUTER AU PANIER</button>
-        </div>
-        
-        <!-- Description du Produit -->
-        <div class="product-description">
-            <p>Cet ensemble d'exerciseur de mâchoire est conçu pour améliorer le raffermissement et le lifting du visage afin d'améliorer votre ligne de mâchoire. Entraînez les muscles de votre mâchoire pour vous donner une apparence plus jeune et plus saine.</p>
-        </div>
-        
-        <!-- Liste des Caractéristiques -->
-        <div class="features">
-            <div class="feature-item">
-                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
-                <span><strong>Soyez Plus Attrayant :</strong> Améliore la ligne de votre mâchoire pour une apparence plus jeune et plus saine.</span>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
-                <span><strong>Sûr et Durable :</strong> Fabriqué en silicone de qualité alimentaire sans BPA, sans odeur particulière.</span>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
-                <span><strong>Ensemble 3en1 :</strong> Comprend des exerciseurs pour débutants et utilisateurs avancés ainsi qu'un bandage liftant.</span>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
-                <span><strong>Pratique :</strong> Ne prend que quelques minutes par jour, peut être utilisé pendant le sommeil.</span>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
-                <span><strong>Satisfaction Garantie :</strong> Service de retour et d'échange convivial.</span>
-            </div>
-        </div>
-        
-        <!-- Détails du Produit -->
-        <div class="product-details">
-            <h3 class="details-title">Détails du Produit</h3>
-            <ul>
-                <li><strong>Marque :</strong> Haigivesoon</li>
-                <li><strong>Forme de l'article :</strong> Stick</li>
-                <li><strong>Bénéfices du produit :</strong> Raffermissant, Anti-âge</li>
-                <li><strong>Type de peau :</strong> Tous</li>
-                <li><strong>Nombre d'unités :</strong> 5.0 Once</li>
-            </ul>
-        </div>
-    </div> <!-- Fin de .product-info pour #product-mask -->
 
-    <!-- Section Résultats - Spécifique au Masque Liftant de Nuit -->
-    <div class="results-section">
-        <h2 class="results-header">Adieu Peau Relâchée, Bonjour Mâchoire Définie</h2>
-        
-        <div class="comparison">
-            <div>
-                <img src="a4bf5cc5-7f2c-4987-83cb-d89294b84862.jpg" alt="Avant" class="comparison-image">
-                <div class="comparison-label">Avant</div>
-            </div>
-            <div>
-                <img src="03e6e351-da87-4f09-b5c9-5c602d6dcf53.jpg" alt="Après" class="comparison-image">
-                <div class="comparison-label">Après</div>
-            </div>
-        </div>
-        
-        <div class="results-stats">86% des utilisateurs ont constaté des résultats après 4 semaines</div>
-        
-        <div class="testimonial">
-            <div class="testimonial-user">
-                <img src="https://via.placeholder.com/50x50?text=Lina" alt="Lina" class="user-avatar">
-                <div class="user-name">Lina</div>
-            </div>
-            <p class="testimonial-text">J'ai utilisé la crème et le masque de nuit – et omg ma peau est tellement lisse et tendue. Tout le monde me demande si j'ai fait du Botox lol… non, juste cette combinaison. Tellement bien !</p>
-            <div class="comparison">
-                <div>
-                    <img src="https://via.placeholder.com/200x200?text=Avant" alt="Avant" class="comparison-image">
-                    <div class="comparison-label">Avant</div>
-                </div>
-                <div>
-                    <img src="https://via.placeholder.com/200x200?text=Après" alt="Après" class="comparison-image">
-                    <div class="comparison-label">Incroyable !!</div>
+    <!-- Sections Produits (initiallement cachées, affichées par JS) -->
+    <div class="product-view-container" style="display: none;">
+        <button class="back-to-selector-btn">← Retourner à la sélection</button>
+
+        <!-- Section Produit Principal: Masque Liftant de Nuit -->
+        <div class="product-hero" id="product-mask" data-product-name="Masque Liftant de Nuit" style="display: none;">
+            <div class="main-image-container">
+                <img src="71vB0ZpsSUS.SL1500.jpg" alt="Ensemble d'exerciseur de mâchoire anti-âge et bandage liftant" class="main-image">
+                <div class="thumbnail-container">
+                    <img src="pack_57a4d1b2-d2cf-40aa-8e0f-13e5010a0199.webp" alt="Miniature produit 1" class="thumbnail">
+                    <img src="H341bd4e373d042d5b87f953231f1f66ap.webp" alt="Miniature produit 2" class="thumbnail">
+                    <img src="newp_pic_jawline_creme.webp" alt="Miniature produit 3" class="thumbnail">
+                    <img src="71gj9pgriHS._SL1500_.jpg" alt="Miniature produit 5" class="thumbnail">
+                    <img src="71uv33UjZnS._SL1500_.jpg" alt="Miniature produit 6" class="thumbnail">
+                    <img src="71vB0ZpsSUS._SL1500_.jpg" alt="Miniature produit 7" class="thumbnail">
                 </div>
             </div>
-        </div>
-        
-        <div class="testimonial">
-            <div class="testimonial-user">
-                <img src="https://via.placeholder.com/50x50?text=Anna" alt="Anna" class="user-avatar">
-                <div class="user-name">Anna</div>
-            </div>
-            <p class="testimonial-text">Mon visage était vraiment affaissé, j'ai tout essayé mais rien n'a fonctionné. Jusqu'à ce que j'essaie la Crème Liftante & le Masque de Nuit Numiba ! Tellement contente des résultats :)</p>
-            <div class="comparison">
-                <div>
-                    <img src="https://via.placeholder.com/200x200?text=Avant" alt="Avant" class="comparison-image">
-                    <div class="comparison-label">Avant</div>
+            <div class="product-info">
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span>4.8 | 770 Avis</span>
                 </div>
-                <div>
-                    <img src="https://via.placeholder.com/200x200?text=Après" alt="Après" class="comparison-image">
-                    <div class="comparison-label">Tellement BIEN</div>
+                <h1 class="product-title">Masque Liftant de Nuit</h1>
+                <div class="price-section">
+                    <span class="sale-price">22,99 $</span>
+                    <span class="price-note">(3,60 $ / once)</span>
+                </div>
+                <div class="add-to-cart-section">
+                    <div class="cart-notice">Plus que 5 en stock - commandez vite.</div>
+                    <button class="add-to-cart">AJOUTER AU PANIER</button>
+                </div>
+                <div class="product-description">
+                    <p>Cet ensemble d'exerciseur de mâchoire est conçu pour améliorer le raffermissement et le lifting du visage afin d'améliorer votre ligne de mâchoire. Entraînez les muscles de votre mâchoire pour vous donner une apparence plus jeune et plus saine.</p>
+                </div>
+                <div class="features">
+                    <div class="feature-item">
+                        <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                        <span><strong>Soyez Plus Attrayant :</strong> Améliore la ligne de votre mâchoire pour une apparence plus jeune et plus saine.</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                        <span><strong>Sûr et Durable :</strong> Fabriqué en silicone de qualité alimentaire sans BPA, sans odeur particulière.</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                        <span><strong>Ensemble 3en1 :</strong> Comprend des exerciseurs pour débutants et utilisateurs avancés ainsi qu'un bandage liftant.</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                        <span><strong>Pratique :</strong> Ne prend que quelques minutes par jour, peut être utilisé pendant le sommeil.</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                        <span><strong>Satisfaction Garantie :</strong> Service de retour et d'échange convivial.</span>
+                    </div>
+                </div>
+                <div class="product-details">
+                    <h3 class="details-title">Détails du Produit</h3>
+                    <ul>
+                        <li><strong>Marque :</strong> Haigivesoon</li>
+                        <li><strong>Forme de l'article :</strong> Stick</li>
+                        <li><strong>Bénéfices du produit :</strong> Raffermissant, Anti-âge</li>
+                        <li><strong>Type de peau :</strong> Tous</li>
+                        <li><strong>Nombre d'unités :</strong> 5.0 Once</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Section Résultats - Spécifique au Masque Liftant de Nuit -->
+            <div class="results-section">
+                <h2 class="results-header">Adieu Peau Relâchée, Bonjour Mâchoire Définie</h2>
+                <div class="comparison">
+                    <div>
+                        <img src="a4bf5cc5-7f2c-4987-83cb-d89294b84862.jpg" alt="Avant" class="comparison-image">
+                        <div class="comparison-label">Avant</div>
+                    </div>
+                    <div>
+                        <img src="03e6e351-da87-4f09-b5c9-5c602d6dcf53.jpg" alt="Après" class="comparison-image">
+                        <div class="comparison-label">Après</div>
+                    </div>
+                </div>
+                <div class="results-stats">86% des utilisateurs ont constaté des résultats après 4 semaines</div>
+                <div class="testimonial">
+                    <div class="testimonial-user">
+                        <img src="https://via.placeholder.com/50x50?text=Lina" alt="Lina" class="user-avatar">
+                        <div class="user-name">Lina</div>
+                    </div>
+                    <p class="testimonial-text">J'ai utilisé la crème et le masque de nuit – et omg ma peau est tellement lisse et tendue. Tout le monde me demande si j'ai fait du Botox lol… non, juste cette combinaison. Tellement bien !</p>
+                    <div class="comparison">
+                        <div>
+                            <img src="https://via.placeholder.com/200x200?text=Avant" alt="Avant" class="comparison-image">
+                            <div class="comparison-label">Avant</div>
+                        </div>
+                        <div>
+                            <img src="https://via.placeholder.com/200x200?text=Après" alt="Après" class="comparison-image">
+                            <div class="comparison-label">Incroyable !!</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-user">
+                        <img src="https://via.placeholder.com/50x50?text=Anna" alt="Anna" class="user-avatar">
+                        <div class="user-name">Anna</div>
+                    </div>
+                    <p class="testimonial-text">Mon visage était vraiment affaissé, j'ai tout essayé mais rien n'a fonctionné. Jusqu'à ce que j'essaie la Crème Liftante & le Masque de Nuit Numiba ! Tellement contente des résultats :)</p>
+                    <div class="comparison">
+                        <div>
+                            <img src="https://via.placeholder.com/200x200?text=Avant" alt="Avant" class="comparison-image">
+                            <div class="comparison-label">Avant</div>
+                        </div>
+                        <div>
+                            <img src="https://via.placeholder.com/200x200?text=Après" alt="Après" class="comparison-image">
+                            <div class="comparison-label">Tellement BIEN</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div> <!-- Fin de .results-section -->
-</div> <!-- Fin de .product-hero #product-mask -->
-    
-    <!-- Section Produit Principal -->
-<div class="product-hero" id="product-therapy-mask" data-product-name="Masque de Luminothérapie à Lumière Bleue">
-    <div class="main-image-container">
-        <img src="8108jNqNHYL._SL1500_.jpg" alt="Masque de luminothérapie à lumière bleue pour l'acné du visage" class="main-image">
-        
-        <div class="thumbnail-container">
-            <img src="8108jNqNHYL._SL1500_.jpg" alt="Miniature produit 1" class="thumbnail">
-            <img src="71gR8lEe5uL._SL1500_.jpg" alt="Miniature produit 2" class="thumbnail">
-            <img src="81HDNU0RU0L._SL1500_.jpg" alt="Miniature produit 3" class="thumbnail">
-            <img src="710E7veA9BL._SL1500_.jpg" alt="Miniature produit 4" class="thumbnail">
-            <img src="81WKaSgNSNL._SL1500_.jpg" alt="Miniature produit 5" class="thumbnail">
-            <img src="91NMHU-+DyL._SL1500_.jpg" alt="Miniature produit 6" class="thumbnail">
-            <img src="91rWlj7BMTL._SL1500_.jpg" alt="Miniature produit 7" class="thumbnail">
-        </div>
-    </div>
-    
-    <div class="product-info">
-        <div class="rating">
-            <span class="stars">★★★★★</span>
-            <span>5.0 | 13 Avis</span>
-            <span class="bought-count">100+ achetés le mois dernier</span>
-        </div>
-        
-        <h1 class="product-title">Masque de Luminothérapie à Lumière Bleue pour l'Acné du Visage, Appareil de Thérapie par Lumière LED Rouge</h1>
-        <div class="brand">Marque : KNNKNN</div>
-        
-        <!-- Section Prix -->
-        <div class="price-section">
-            <span class="sale-price">39,99 $</span>
-            <span class="price-note">(39,99 $ / unité)</span>
-        </div>
-        
-        <!-- Section Ajouter au Panier -->
-        <div class="add-to-cart-section">
-            <div class="cart-notice">Article populaire - se vend rapidement !</div>
-            <button class="add-to-cart">AJOUTER AU PANIER</button>
-            <div class="shipping-info">64,99 $ de frais d'expédition et d'importation vers le Maroc</div>
-        </div>
-        
-        <!-- Caractéristiques Clés -->
-        <div class="features">
-            <div class="feature-item">
-                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
-                <span><strong>SPA À DOMICILE :</strong> Soins professionnels de la peau à domicile sans effets secondaires. Résultats visibles en environ 3 mois.</span>
+
+        <!-- Section Produit Principal: Masque de Luminothérapie -->
+        <div class="product-hero" id="product-therapy-mask" data-product-name="Masque de Luminothérapie à Lumière Bleue" style="display: none;">
+            <div class="main-image-container">
+                <img src="8108jNqNHYL._SL1500_.jpg" alt="Masque de luminothérapie à lumière bleue pour l'acné du visage" class="main-image">
+                <div class="thumbnail-container">
+                    <img src="8108jNqNHYL._SL1500_.jpg" alt="Miniature produit 1" class="thumbnail">
+                    <img src="71gR8lEe5uL._SL1500_.jpg" alt="Miniature produit 2" class="thumbnail">
+                    <img src="81HDNU0RU0L._SL1500_.jpg" alt="Miniature produit 3" class="thumbnail">
+                    <img src="710E7veA9BL._SL1500_.jpg" alt="Miniature produit 4" class="thumbnail">
+                    <img src="81WKaSgNSNL._SL1500_.jpg" alt="Miniature produit 5" class="thumbnail">
+                    <img src="91NMHU-+DyL._SL1500_.jpg" alt="Miniature produit 6" class="thumbnail">
+                    <img src="91rWlj7BMTL._SL1500_.jpg" alt="Miniature produit 7" class="thumbnail">
+                </div>
             </div>
-            <div class="feature-item">
-                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
-                <span><strong>THÉRAPIE 7 COULEURS :</strong> 7 couleurs de lumière ciblant différentes affections cutanées avec une énergie lumineuse pure.</span>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
-                <span><strong>SANS FIL ET PORTABLE :</strong> Batterie rechargeable avec 8 modes (7 couleurs + mode défilement des couleurs).</span>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
-                <span><strong>CADEAU PARFAIT :</strong> Comprend un câble USB, un manuel et une ceinture réglable.</span>
-            </div>
-            <div class="feature-item">
-                <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
-                <span><strong>SÉCURITÉ AUTOMATIQUE :</strong> Arrêt automatique après 15 minutes et design léger et confortable.</span>
+            <div class="product-info">
+                <div class="rating">
+                    <span class="stars">★★★★★</span>
+                    <span>5.0 | 13 Avis</span>
+                    <span class="bought-count">100+ achetés le mois dernier</span>
+                </div>
+                <h1 class="product-title">Masque de Luminothérapie à Lumière Bleue pour l'Acné du Visage, Appareil de Thérapie par Lumière LED Rouge</h1>
+                <div class="brand">Marque : KNNKNN</div>
+                <div class="price-section">
+                    <span class="sale-price">39,99 $</span>
+                    <span class="price-note">(39,99 $ / unité)</span>
+                </div>
+                <div class="add-to-cart-section">
+                    <div class="cart-notice">Article populaire - se vend rapidement !</div>
+                    <button class="add-to-cart">AJOUTER AU PANIER</button>
+                    <div class="shipping-info">64,99 $ de frais d'expédition et d'importation vers le Maroc</div>
+                </div>
+                <div class="features">
+                    <div class="feature-item">
+                        <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                        <span><strong>SPA À DOMICILE :</strong> Soins professionnels de la peau à domicile sans effets secondaires. Résultats visibles en environ 3 mois.</span>
+                    </div>
+                     <div class="feature-item">
+                        <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                        <span><strong>THÉRAPIE 7 COULEURS :</strong> 7 couleurs de lumière ciblant différentes affections cutanées avec une énergie lumineuse pure.</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                        <span><strong>SANS FIL ET PORTABLE :</strong> Batterie rechargeable avec 8 modes (7 couleurs + mode défilement des couleurs).</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                        <span><strong>CADEAU PARFAIT :</strong> Comprend un câble USB, un manuel et une ceinture réglable.</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"> <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/> </svg></span>
+                        <span><strong>SÉCURITÉ AUTOMATIQUE :</strong> Arrêt automatique après 15 minutes et design léger et confortable.</span>
+                    </div>
+                </div>
+                <div class="product-description">
+                    <h3>Bénéfices Détaillés :</h3>
+                    <ul>
+                        <li>Réduit l'acné et améliore la clarté de la peau</li>
+                        <li>Minimise les rides et ridules</li>
+                        <li>Raffermit et éclaircit le teint</li>
+                        <li>Anti-âge et restauration de la peau</li>
+                        <li>Puces LED de pureté à 99% pour un traitement efficace</li>
+                    </ul>
+                </div>
+                <div class="product-details">
+                    <h3 class="details-title">Détails Techniques :</h3>
+                    <ul>
+                        <li><strong>Source d'alimentation :</strong> Batterie rechargeable intégrée</li>
+                        <li><strong>Utilisation :</strong> 15 minutes par session (arrêt automatique)</li>
+                        <li><strong>Chargement :</strong> Chargement USB (ne fonctionne pas pendant le chargement)</li>
+                        <li><strong>Poids :</strong> Léger pour un port confortable</li>
+                        <li><strong>Inclus :</strong> Masque, câble USB, manuel, ceinture réglable</li>
+                    </ul>
+                </div>
             </div>
         </div>
-        
-        <!-- Description Détaillée -->
-        <div class="product-description">
-            <h3>Bénéfices Détaillés :</h3>
-            <ul>
-                <li>Réduit l'acné et améliore la clarté de la peau</li>
-                <li>Minimise les rides et ridules</li>
-                <li>Raffermit et éclaircit le teint</li>
-                <li>Anti-âge et restauration de la peau</li>
-                <li>Puces LED de pureté à 99% pour un traitement efficace</li>
-            </ul>
-        </div>
-        
-        <!-- Spécifications du Produit -->
-        <div class="product-details">
-            <h3 class="details-title">Détails Techniques :</h3>
-            <ul>
-                <li><strong>Source d'alimentation :</strong> Batterie rechargeable intégrée</li>
-                <li><strong>Utilisation :</strong> 15 minutes par session (arrêt automatique)</li>
-                <li><strong>Chargement :</strong> Chargement USB (ne fonctionne pas pendant le chargement)</li>
-                <li><strong>Poids :</strong> Léger pour un port confortable</li>
-                <li><strong>Inclus :</strong> Masque, câble USB, manuel, ceinture réglable</li>
-            </ul>
-        </div>
-    </div>
-</div>
+    </div> <!-- Fin de .product-view-container -->
+</div> <!-- Fin de #page-container -->
 
     <!-- Produits Recommandés / Achetez Ensemble -->
-    <div class="recommended-products">
+    <div class="recommended-products" style="display: none;"> <!-- Initially hidden -->
         <h2 class="section-title">Complétez Votre Routine Beauté</h2>
         <div class="products-grid">
             <div class="product-card">
@@ -2356,50 +2433,75 @@
             // ==========================================================================
             // Product Selector Logic (Show/Hide Product Sections)
             // ==========================================================================
-            const productSelectors = document.querySelectorAll('.product-selector');
-            const productHeroes = document.querySelectorAll('.product-hero');
+            const productSelectorSection = document.querySelector('.product-selector-section');
+            const productViewContainer = document.querySelector('.product-view-container');
+            const viewDetailsButtons = document.querySelectorAll('.view-details-btn');
+            const productHeroes = document.querySelectorAll('.product-hero'); // All product detail sections
+            const backToSelectorButton = document.querySelector('.back-to-selector-btn');
+            const breadcrumbs = document.querySelector('.breadcrumbs');
+            const recommendedProductsSection = document.querySelector('.recommended-products');
 
-            function showProduct(productId) {
+
+            function showProductDetails(productId) {
+                // Hide selector, show product view container
+                productSelectorSection.style.display = 'none';
+                productViewContainer.style.display = 'block';
+                breadcrumbs.style.display = 'block'; // Show breadcrumbs
+                recommendedProductsSection.style.display = 'block'; // Show related products
+
+                // Hide all product heroes first
                 productHeroes.forEach(hero => {
-                    if (hero.id === productId) {
-                        // Rétablir le style d'affichage original basé sur les media queries
-                        // Pour .product-hero, c'est 'flex' par défaut et 'column' sur mobile,
-                        // mais JavaScript ne peut pas facilement rétablir cela directement sans plus de complexité.
-                        // La solution simple est de ne pas mettre de display: none; sur celui qu'on veut montrer
-                        // et s'assurer qu'il hérite ou a son propre style CSS.
-                        // Une approche plus robuste serait d'ajouter/retirer une classe 'hidden'.
-                        // Pour l'instant, on va utiliser '' qui laisse CSS gérer.
-                        hero.style.display = ''; // Laisse CSS gérer (devrait être 'flex' ou 'block' selon CSS)
-                         // Forcer le recalcul du layout si on utilise des animations au changement
-                        void hero.offsetWidth;
-                        hero.classList.add('fade-in'); // Réappliquer l'animation si souhaité
-
-                    } else {
-                        hero.style.display = 'none';
-                        hero.classList.remove('fade-in');
-                    }
+                    hero.style.display = 'none';
+                    hero.classList.remove('fade-in');
                 });
 
-                productSelectors.forEach(selector => {
-                    if (selector.dataset.productId === productId) {
-                        selector.classList.add('active-selector');
-                    } else {
-                        selector.classList.remove('active-selector');
-                    }
-                });
+                // Show the selected product hero
+                const selectedHero = document.getElementById(productId);
+                if (selectedHero) {
+                    selectedHero.style.display = 'flex'; // Or 'block' or '' depending on your CSS for .product-hero
+                    void selectedHero.offsetWidth; // Trigger reflow for animation
+                    selectedHero.classList.add('fade-in');
+
+                    // Update breadcrumbs (simple example)
+                    const productName = selectedHero.dataset.productName || "Produit";
+                    breadcrumbs.innerHTML = `Collections <span>/</span> ${productName}`;
+                }
+
+                // Scroll to the top of the product view
+                productViewContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
 
-            productSelectors.forEach(selector => {
-                selector.addEventListener('click', function() {
-                    const productId = this.dataset.productId;
-                    showProduct(productId);
+            function showProductSelector() {
+                // Show selector, hide product view container
+                productSelectorSection.style.display = 'block';
+                productViewContainer.style.display = 'none';
+                breadcrumbs.style.display = 'none'; // Hide breadcrumbs
+                recommendedProductsSection.style.display = 'none'; // Hide related products
+
+
+                // Clear active state from selectors
+                document.querySelectorAll('.product-selector').forEach(s => s.classList.remove('active-selector'));
+                
+                // Scroll to the top of the selector section
+                productSelectorSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            viewDetailsButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productSelectorDiv = this.closest('.product-selector');
+                    const productId = productSelectorDiv.dataset.productId;
+                    productSelectorDiv.classList.add('active-selector'); // Mark as active
+                    showProductDetails(productId);
                 });
             });
 
-            // Afficher le premier produit par défaut
-            if (productSelectors.length > 0 && productHeroes.length > 0) {
-                showProduct(productSelectors[0].dataset.productId);
+            if (backToSelectorButton) {
+                backToSelectorButton.addEventListener('click', showProductSelector);
             }
+
+            // Initial state: Show selector view
+            showProductSelector();
+
 
             // Scroll to Top Button Functionality
             const scrollToTopBtn = document.getElementById('scrollToTopBtn');
